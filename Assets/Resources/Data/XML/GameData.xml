@@ -1,0 +1,29 @@
+<gameData>
+    <difficulty level="Easy">
+        <buttons>4</buttons>
+        <pointsPerStep>1</pointsPerStep>
+        <gameTime>50</gameTime>
+        <repeatMode>true</repeatMode>
+        <bonus>
+            <gameSpeed>1</gameSpeed>
+        </bonus>
+    </difficulty>
+    <difficulty level="Medium">
+        <buttons>5</buttons>
+        <pointsPerStep>2</pointsPerStep>
+        <gameTime>45</gameTime>
+        <repeatMode>true</repeatMode>
+        <bonus>
+            <gameSpeed>1.25</gameSpeed>
+        </bonus>
+    </difficulty>
+    <difficulty level="Hard">
+        <buttons>6</buttons>
+        <pointsPerStep>3</pointsPerStep>
+        <gameTime>30</gameTime>
+        <repeatMode>false</repeatMode>
+        <bonus>
+            <gameSpeed>1.5</gameSpeed>
+        </bonus>
+    </difficulty>
+</gameData>

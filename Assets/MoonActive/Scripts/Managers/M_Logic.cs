@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using MoonActive.Scripts.Managers;
 using UnityEngine;
