@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8308424a52b2f4c35acb60878b253de1, type: 3}
   m_Name: FileReaderSO
   m_EditorClassIdentifier: 
-  DataTypeTarget: 1
+  DataTypeTarget: 0
