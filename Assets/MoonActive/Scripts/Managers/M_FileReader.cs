@@ -1,5 +1,3 @@
-using MoonActive.Scripts.FileReader;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class M_FileReader : MonoBehaviour
@@ -8,10 +6,10 @@ public class M_FileReader : MonoBehaviour
 
     private void Start()
     {
-        if (_fileReaderSO.DataTypeTarget == DataType.XML)
-            transform.AddComponent<ReaderXML>();
-        else
-            transform.AddComponent<ReaderJSON>();
+        // if (_fileReaderSO.DataTypeTarget == DataType.XML)
+        //     transform.AddComponent<ReaderXML>();
+        // else
+        //     transform.AddComponent<ReaderJSON>();
     }
     
     

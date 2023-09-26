@@ -1,39 +1,30 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using UnityEditor;
+using MoonActive.Scripts;
 using UnityEngine;
 
-namespace MoonActive.Scripts.FileReader
+public interface IReadXml 
 {
-    public class ReaderXML : EditorWindow//Singleton<ReaderXML>
+    private static readonly string filePath = Path.Combine("Data", "XML" ,"GameData");
+    
+
+    // [SerializeField] GameConfigs _gameConfigs = new GameConfigs();
+    public void Read()
     {
-        private static readonly string filePath = Path.Combine("Data", "XML" ,"GameData");
+        Debug.Log("HUHUUUU");
         TextAsset xmlFile;
         XmlDocument xmlDoc = new XmlDocument();
         XmlNodeList configNodes;
-
-        public GameConfigs _gameConfigs = new GameConfigs();
-
-        private void Start()
+        GameConfigs _gameConfigs = new GameConfigs();
+        
+        xmlFile = Resources.Load<TextAsset>(filePath);
+        if(xmlFile)
         {
-            Read();
-            Set();
-        }
-
-        public void Read()
-        {
-            xmlFile = Resources.Load<TextAsset>(filePath);
-            if(xmlFile)
-            {
-                xmlDoc.LoadXml(xmlFile.text);
-                configNodes = xmlDoc.SelectNodes("/gameData/difficulty");
-                _gameConfigs.List = new List<Config>();
-            }
-        }
-
-        void Set()
-        {
+            xmlDoc.LoadXml(xmlFile.text);
+            configNodes = xmlDoc.SelectNodes("/gameData/difficulty");
+            _gameConfigs.List = new List<Config>();
+            
             if (configNodes == null) return;
             foreach (XmlNode configNode in configNodes)
             {
@@ -59,24 +50,7 @@ namespace MoonActive.Scripts.FileReader
                 }
             }
         }
-
         
-        // void Save()
-        // {
-        //     Debug.Log("Save! " + Application.persistentDataPath);
-        //     string levelTypeToJson = JsonUtility.ToJson(_gameConfigs);
-        //     
-        //     File.WriteAllText(Path.Combine(Application.dataPath, "Resources/Data/JSON/GameData.json"), levelTypeToJson);
-        // }
-
-        public Config Load()
-        {
-            return null;
-        }
-
-        public void Save(Config config)
-        {
         
-        }
     }
 }
