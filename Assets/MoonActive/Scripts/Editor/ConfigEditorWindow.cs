@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using System.Xml.Serialization;
 using UnityEditor;
 using UnityEngine;
 
@@ -36,38 +37,9 @@ namespace MoonActive.Scripts.Editor
         }
         
         private Vector2 scrollPosition;
-        private List<string> stringList = new List<string>(){"abi", "abe", "hoooo"};
 
         private void OnGUI()
         {
-            // GUILayout.Label("Configuration Editor", EditorStyles.boldLabel);
-            //
-            // GUILayout.Label("List of Strings", EditorStyles.boldLabel);
-            //
-            //
-            // // Scroll view to handle a long list of strings
-            // scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
-            //
-            // for (int i = 0; i < stringList.Count; i++)
-            // {
-            //     stringList[i] = EditorGUILayout.TextField("String " + i, stringList[i]);
-            //
-            //     // You can add buttons to delete or perform actions on each string if needed
-            //     if (GUILayout.Button("Delete"))
-            //     {
-            //         stringList.RemoveAt(i);
-            //         i--;
-            //     }
-            // }
-            //
-            // EditorGUILayout.EndScrollView();
-            //
-            // // Add a button to add new strings to the list
-            // if (GUILayout.Button("Add String"))
-            // {
-            //     stringList.Add("");
-            // }
-
             if(_pages == Pages.Main)
             {
                 if (GUILayout.Button("Load Configuration"))
@@ -123,13 +95,15 @@ namespace MoonActive.Scripts.Editor
                     _configs.Add(new Config());
                 }
 
-                if (GUILayout.Button("SAVE CONFIGS MENU"))
+                if (GUILayout.Button("SAVE"))
+                    SaveXML();
+                if (GUILayout.Button("RETURN MENU"))
                     _pages = Pages.Main;
+                // if (GUILayout.Button("SAVE XML"))
+                //     _pages = Pages.Main;
                 
                 EditorGUILayout.EndScrollView();
-
             }
-            
         }
         
         private static readonly string filePath = Path.Combine("Data", "XML" ,"GameData");
@@ -182,6 +156,17 @@ namespace MoonActive.Scripts.Editor
                     }
                 }
                 // Save();
+            }
+        }
+
+        void SaveXML()
+        {
+            _gameConfigs.List = new List<Config>(_configs);
+            
+            XmlSerializer serializer = new XmlSerializer(typeof(GameConfigs));
+            using (FileStream stream = new FileStream(filePath, FileMode.Create))
+            {
+                serializer.Serialize(stream, _gameConfigs);
             }
         }
     }

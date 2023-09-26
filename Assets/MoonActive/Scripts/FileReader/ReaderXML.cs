@@ -25,20 +25,21 @@ namespace MoonActive.Scripts.FileReader
             if(xmlFile)
             {
                 xmlDoc.LoadXml(xmlFile.text);
-                XmlNodeList difficultyNodes = xmlDoc.SelectNodes("/gameData/difficulty");
+                XmlNodeList configNodes = xmlDoc.SelectNodes("/gameData/difficulty");
 
                 _gameConfigs.List = new List<Config>();
-                
-                foreach (XmlNode difficultyNode in difficultyNodes)
+
+                if (configNodes == null) return;
+                foreach (XmlNode configNode in configNodes)
                 {
-                    if (difficultyNode.Attributes != null)
+                    if (configNode.Attributes != null)
                     {
-                        string level = difficultyNode.SelectSingleNode("Name")?.InnerText;
-                        int buttons = int.Parse(difficultyNode.SelectSingleNode("ButtonAmount")?.InnerText);
-                        int pointsPerStep = int.Parse(difficultyNode.SelectSingleNode("PointsPerStep")?.InnerText);
-                        int gameTime = int.Parse(difficultyNode.SelectSingleNode("GameTime")?.InnerText);
-                        bool repeatMode = bool.Parse(difficultyNode.SelectSingleNode("RepeatMode")?.InnerText);
-                        float bonusGameSpeed = float.Parse(difficultyNode.SelectSingleNode("GameSpeed")?.InnerText);
+                        string level = configNode.SelectSingleNode("Name")?.InnerText;
+                        int buttons = int.Parse(configNode.SelectSingleNode("ButtonAmount")?.InnerText!);
+                        int pointsPerStep = int.Parse(configNode.SelectSingleNode("PointsPerStep")?.InnerText!);
+                        int gameTime = int.Parse(configNode.SelectSingleNode("GameTime")?.InnerText!);
+                        bool repeatMode = bool.Parse(configNode.SelectSingleNode("RepeatMode")?.InnerText!);
+                        float bonusGameSpeed = float.Parse(configNode.SelectSingleNode("GameSpeed")?.InnerText!);
 
                         Config config = new Config()
                         {
@@ -49,16 +50,9 @@ namespace MoonActive.Scripts.FileReader
                             IsRepeating = repeatMode,
                             SpeedMultiplier = bonusGameSpeed
                         };
-                        
+
                         _gameConfigs.List.Add(config);
 
-                        // Now, you can use the extracted data as needed for your game.
-                        // Debug.Log($"Level: {level}");
-                        // Debug.Log($"Buttons: {buttons}");
-                        // Debug.Log($"Points Per Step: {pointsPerStep}");
-                        // Debug.Log($"Game Time: {gameTime}");
-                        // Debug.Log($"Repeat Mode: {repeatMode}");
-                        // Debug.Log($"Bonus Game Speed: {bonusGameSpeed}");
                     }
                 }
                 // Save();
