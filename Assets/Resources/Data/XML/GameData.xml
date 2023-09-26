@@ -1,29 +1,26 @@
 <gameData>
-    <difficulty level="Easy">
-        <buttons>4</buttons>
-        <pointsPerStep>1</pointsPerStep>
-        <gameTime>50</gameTime>
-        <repeatMode>true</repeatMode>
-        <bonus>
-            <gameSpeed>1</gameSpeed>
-        </bonus>
+    <difficulty>
+        <Name>Easy</Name>
+        <ButtonAmount>4</ButtonAmount>
+        <PointsPerStep>1</PointsPerStep>
+        <GameTime>50</GameTime>
+        <RepeatMode>true</RepeatMode>
+        <GameSpeed>1.0</GameSpeed>
     </difficulty>
-    <difficulty level="Medium">
-        <buttons>5</buttons>
-        <pointsPerStep>2</pointsPerStep>
-        <gameTime>45</gameTime>
-        <repeatMode>true</repeatMode>
-        <bonus>
-            <gameSpeed>1.25</gameSpeed>
-        </bonus>
+    <difficulty>
+        <Name>Medium</Name>
+        <ButtonAmount>5</ButtonAmount>
+        <PointsPerStep>2</PointsPerStep>
+        <GameTime>45</GameTime>
+        <RepeatMode>true</RepeatMode>
+        <GameSpeed>1.25</GameSpeed>
     </difficulty>
-    <difficulty level="Hard">
-        <buttons>6</buttons>
-        <pointsPerStep>3</pointsPerStep>
-        <gameTime>30</gameTime>
-        <repeatMode>false</repeatMode>
-        <bonus>
-            <gameSpeed>1.5</gameSpeed>
-        </bonus>
+    <difficulty>
+        <Name>Hard</Name>
+        <ButtonAmount>6</ButtonAmount>
+        <PointsPerStep>3</PointsPerStep>
+        <GameTime>30</GameTime>
+        <RepeatMode>false</RepeatMode>
+        <GameSpeed>1.5</GameSpeed>
     </difficulty>
 </gameData>

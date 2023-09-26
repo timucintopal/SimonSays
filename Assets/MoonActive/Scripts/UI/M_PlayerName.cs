@@ -17,7 +17,6 @@ public class M_PlayerName : MonoBehaviour
 
     bool _isSaved = false;
 
-
     public static UnityAction OnNameSave;
     
     private void Awake()
@@ -45,6 +44,7 @@ public class M_PlayerName : MonoBehaviour
         if (CheckName())
         {
             // M_PlayerPrefs.I.SetName(_nameField.text);
+            OnNameSave?.Invoke();
             _nameField.text = "Saved!";
             _isSaved = true;
             StartCoroutine(Close());

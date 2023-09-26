@@ -3,7 +3,7 @@ using MoonActive.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class M_Logic : MonoBehaviour
+public class M_Logic : Singleton<M_Logic>
 {
     public static UnityAction IsFirstEntry;
     public static UnityAction OnGameStart;
@@ -12,6 +12,7 @@ public class M_Logic : MonoBehaviour
 
     WaitUntil _waitEnds;
 
+    public static UnityAction OnPlayerNameReady;
 
     private void Awake()
     {
@@ -28,9 +29,7 @@ public class M_Logic : MonoBehaviour
         if (M_PlayerPrefs.CheckFirstEntry())
             StartCoroutine(GameStartFirstEntry());
         else
-        {
-            
-        }
+            OnPlayerNameReady?.Invoke();
     }
     
     IEnumerator GameStartFirstEntry()
@@ -41,5 +40,8 @@ public class M_Logic : MonoBehaviour
 
         yield return _waitEnds;
         M_PlayerName.OnNameSave -= ()=> WaitStatus(true);
+        
+        OnPlayerNameReady?.Invoke();
+        
     }
 }

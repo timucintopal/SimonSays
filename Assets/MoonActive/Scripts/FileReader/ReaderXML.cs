@@ -28,17 +28,16 @@ namespace MoonActive.Scripts.FileReader
                 {
                     if (difficultyNode.Attributes != null)
                     {
-                        string level = difficultyNode.Attributes["level"].Value;
-                        ;
-                        int buttons = int.Parse(difficultyNode.SelectSingleNode("buttons")?.InnerText);
-                        int pointsPerStep = int.Parse(difficultyNode.SelectSingleNode("pointsPerStep").InnerText);
-                        int gameTime = int.Parse(difficultyNode.SelectSingleNode("gameTime").InnerText);
-                        bool repeatMode = bool.Parse(difficultyNode.SelectSingleNode("repeatMode").InnerText);
-                        float bonusGameSpeed = float.Parse(difficultyNode.SelectSingleNode("bonus/gameSpeed").InnerText);
+                        string level = difficultyNode.SelectSingleNode("Name")?.InnerText;
+                        int buttons = int.Parse(difficultyNode.SelectSingleNode("ButtonAmount")?.InnerText);
+                        int pointsPerStep = int.Parse(difficultyNode.SelectSingleNode("PointsPerStep")?.InnerText);
+                        int gameTime = int.Parse(difficultyNode.SelectSingleNode("GameTime")?.InnerText);
+                        bool repeatMode = bool.Parse(difficultyNode.SelectSingleNode("RepeatMode")?.InnerText);
+                        float bonusGameSpeed = float.Parse(difficultyNode.SelectSingleNode("GameSpeed")?.InnerText);
 
                         Config config = new Config()
                         {
-                            Difficulty = (Difficulties)System.Enum.Parse( typeof(Difficulties), level ),
+                            DifficultyName = level,
                             ButtonAmount = buttons,
                             PointPerStep = pointsPerStep,
                             Duration = gameTime,
@@ -63,6 +62,7 @@ namespace MoonActive.Scripts.FileReader
                 Debug.Log("XML NULL");
         }
 
+        
         void Save()
         {
             Debug.Log("Save! " + Application.persistentDataPath);

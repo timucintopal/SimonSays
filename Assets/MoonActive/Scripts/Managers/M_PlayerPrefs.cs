@@ -4,6 +4,7 @@ namespace MoonActive.Scripts.Managers
 {
     public class M_PlayerPrefs : Singleton<M_PlayerPrefs>
     {
+        
         /// <summary>
         /// Returns true if its players first entry
         /// </summary>

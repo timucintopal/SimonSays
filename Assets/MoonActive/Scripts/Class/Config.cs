@@ -20,7 +20,7 @@ namespace MoonActive.Scripts
     [Serializable]
     public class Config
     {
-        public Difficulties Difficulty;
+        public string DifficultyName;
         public int ButtonAmount;
         public int PointPerStep;
         public int Duration;
