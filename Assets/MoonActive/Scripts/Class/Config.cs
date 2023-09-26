@@ -4,14 +4,6 @@ using System.Collections.Generic;
 namespace MoonActive.Scripts
 {
     [Serializable]
-    public enum Difficulties
-    {
-        Easy,
-        Medium,
-        Hard
-    }
-    
-    [Serializable]
     public class GameConfigs
     {
         public List<Config> List;

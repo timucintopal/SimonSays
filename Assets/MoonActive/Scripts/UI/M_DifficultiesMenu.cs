@@ -6,14 +6,14 @@ public class M_DifficultiesMenu : PopupUI
 {
     bool isSelected = false;
 
-    public UnityAction<Difficulties> OnDifficultySelect;
+    public UnityAction<Config> OnDifficultySelect;
     
     private void OnEnable()
     {
         M_Logic.OnPlayerNameReady += Open;
     }
 
-    public void DifficultySelect(Difficulties difficulties)
+    public void DifficultySelect(Config difficulties)
     {
         if (isSelected) return;
         isSelected = true;

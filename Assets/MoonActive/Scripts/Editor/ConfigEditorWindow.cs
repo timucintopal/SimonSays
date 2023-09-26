@@ -1,44 +1,22 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
-using MoonActive.Scripts.FileReader;
+using MoonActive.Scripts.Managers;
 using UnityEditor;
 using UnityEngine;
 
 namespace MoonActive.Scripts.Editor
 {
-    public enum Pages
+    public class ConfigEditorWindow : EditorWindow 
     {
-        Main,
-        Load,
-        Save
-    }
-    public class ConfigEditorWindow : ReaderXML//EditorWindow, IReadXml 
-    {
-        // Define a dictionary to store configuration values.
-        // private Dictionary<string, object> configData = new Dictionary<string, object>();
-
+        GameConfigs _gameConfigs = new GameConfigs();
         List<Config> _configs = new List<Config>();
 
-        Pages _pages = Pages.Main;
-
-        private string _difficulty;
-        private int _intValue;
-        private string _stringValue;
-        private float _floatValue;
-        private bool _boolValue;
-
-        bool isSave = false;
+        Vector2 scrollPosition;
 
         [MenuItem("Custom/Open Config Editor")]
         public static void ShowWindow()
         {
             GetWindow<ConfigEditorWindow>("Config Editor");
         }
-        
-        private Vector2 scrollPosition;
 
         private void OnGUI()
         {
@@ -60,95 +38,30 @@ namespace MoonActive.Scripts.Editor
                     _configs.RemoveAt(i);
                     i--;
                 }
-
                 EditorGUILayout.Space();
-
             }
 
             if (GUILayout.Button("READ DATA"))
                 Read();
 
             if (GUILayout.Button("Add Config"))
-            {
-                Config newConfig = new Config(); 
-                _configs.Add(newConfig);
-            }
+                _configs.Add(new Config());
 
             if (GUILayout.Button("SAVE"))
                 SaveXML();
             
             EditorGUILayout.EndScrollView();
         }
-        
-        // private static readonly string filePath = Path.Combine("Data", "XML" ,"GameData");
-        // TextAsset xmlFile;
-        //
-        // XmlDocument xmlDoc = new XmlDocument();
-        //
-        // [SerializeField] GameConfigs _gameConfigs = new GameConfigs();
-
 
         void Read()
         {
-            
+            _gameConfigs = XMLManager.LoadData<GameConfigs>();
+            _configs = _gameConfigs.List;
         }
-
-        // void Read()
-        // {
-        //     // _configs.Clear();
-        //     // xmlFile = Resources.Load<TextAsset>(filePath);
-        //     // if(xmlFile)
-        //     // {
-        //     //     xmlDoc.LoadXml(xmlFile.text);
-        //     //     XmlNodeList difficultyNodes = xmlDoc.SelectNodes("/gameData/difficulty");
-        //     //
-        //     //     if (difficultyNodes != null)
-        //     //         foreach (XmlNode difficultyNode in difficultyNodes)
-        //     //         {
-        //     //             if (difficultyNode.Attributes != null)
-        //     //             {
-        //     //                 string level = difficultyNode.SelectSingleNode("Name")?.InnerText;
-        //     //                 int buttons = int.Parse(difficultyNode.SelectSingleNode("ButtonAmount")?.InnerText);
-        //     //                 int pointsPerStep = int.Parse(difficultyNode.SelectSingleNode("PointsPerStep")?.InnerText);
-        //     //                 int gameTime = int.Parse(difficultyNode.SelectSingleNode("GameTime")?.InnerText);
-        //     //                 bool repeatMode = bool.Parse(difficultyNode.SelectSingleNode("RepeatMode")?.InnerText);
-        //     //                 float bonusGameSpeed = float.Parse(difficultyNode.SelectSingleNode("GameSpeed")?.InnerText);
-        //     //
-        //     //                 Config config = new Config()
-        //     //                 {
-        //     //                     DifficultyName = level,
-        //     //                     ButtonAmount = buttons,
-        //     //                     PointPerStep = pointsPerStep,
-        //     //                     Duration = gameTime,
-        //     //                     IsRepeating = repeatMode,
-        //     //                     SpeedMultiplier = bonusGameSpeed
-        //     //                 };
-        //     //
-        //     //                 _configs.Add(config);
-        //     //
-        //     //                 // Now, you can use the extracted data as needed for your game.
-        //     //                 // Debug.Log($"Level: {level}");
-        //     //                 // Debug.Log($"Buttons: {buttons}");
-        //     //                 // Debug.Log($"Points Per Step: {pointsPerStep}");
-        //     //                 // Debug.Log($"Game Time: {gameTime}");
-        //     //                 // Debug.Log($"Repeat Mode: {repeatMode}");
-        //     //                 // Debug.Log($"Bonus Game Speed: {bonusGameSpeed}");
-        //     //             }
-        //     //         }
-        //     //     // Save();
-        //     // }
-        // }
 
         void SaveXML()
         {
-            // _gameConfigs = new GameConfigs();
-            // _gameConfigs.List = new List<Config>(_configs);
-            //
-            // XmlSerializer serializer = new XmlSerializer(typeof(GameConfigs));
-            // using (FileStream stream = new FileStream(Path.Combine(Application.dataPath,"Resources" ,"Data", "XML", "GameData.xml"), FileMode.Create))
-            // {
-            //     serializer.Serialize(stream, _gameConfigs);
-            // }
+            XMLManager.SaveData(_gameConfigs);
         }
     }
 }

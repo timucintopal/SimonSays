@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MoonActive.Scripts.FileReader
 {
-    public class ReaderXML : EditorWindow//Singleton<ReaderXML>
+    public class ReaderXML : EditorWindow
     {
         private static readonly string filePath = Path.Combine("Data", "XML" ,"GameData");
         TextAsset xmlFile;
@@ -58,25 +58,6 @@ namespace MoonActive.Scripts.FileReader
                     _gameConfigs.List.Add(config);
                 }
             }
-        }
-
-        
-        // void Save()
-        // {
-        //     Debug.Log("Save! " + Application.persistentDataPath);
-        //     string levelTypeToJson = JsonUtility.ToJson(_gameConfigs);
-        //     
-        //     File.WriteAllText(Path.Combine(Application.dataPath, "Resources/Data/JSON/GameData.json"), levelTypeToJson);
-        // }
-
-        public Config Load()
-        {
-            return null;
-        }
-
-        public void Save(Config config)
-        {
-        
         }
     }
 }

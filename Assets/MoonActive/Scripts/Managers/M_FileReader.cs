@@ -11,6 +11,4 @@ public class M_FileReader : MonoBehaviour
         // else
         //     transform.AddComponent<ReaderJSON>();
     }
-    
-    
 }
