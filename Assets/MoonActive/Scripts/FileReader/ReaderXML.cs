@@ -16,6 +16,11 @@ namespace MoonActive.Scripts.FileReader
 
         private void Start()
         {
+            Read();
+        }
+
+        void Read()
+        {
             xmlFile = Resources.Load<TextAsset>(filePath);
             if(xmlFile)
             {
@@ -56,10 +61,8 @@ namespace MoonActive.Scripts.FileReader
                         // Debug.Log($"Bonus Game Speed: {bonusGameSpeed}");
                     }
                 }
-                Save();
+                // Save();
             }
-            else
-                Debug.Log("XML NULL");
         }
 
         
