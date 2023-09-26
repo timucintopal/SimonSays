@@ -26,12 +26,12 @@ namespace MoonActive.Scripts.Editor
             {
                 var config = _configs[i];
                 GUILayout.Label("Config " + (i + 1), EditorStyles.boldLabel);
-                config.DifficultyName = EditorGUILayout.TextField("Name_" + i, config.DifficultyName);
-                config.ButtonAmount = EditorGUILayout.IntField("ButtonAmount_" + i, config.ButtonAmount);
-                config.PointPerStep = EditorGUILayout.IntField("Point_" + i, config.PointPerStep);
-                config.Duration = EditorGUILayout.IntField("Duration_" + i, config.Duration);
-                config.IsRepeating = EditorGUILayout.Toggle("Repeating_" + i, config.IsRepeating);
-                config.SpeedMultiplier = EditorGUILayout.FloatField("SpeedMultiplier_" + i, config.SpeedMultiplier);
+                config.DifficultyName = EditorGUILayout.TextField("Name : ", config.DifficultyName);
+                config.ButtonAmount = EditorGUILayout.IntField("ButtonAmount : ", config.ButtonAmount);
+                config.PointPerStep = EditorGUILayout.IntField("Point : ", config.PointPerStep);
+                config.Duration = EditorGUILayout.IntField("Duration : ", config.Duration);
+                config.IsRepeating = EditorGUILayout.Toggle("Repeating : ", config.IsRepeating);
+                config.SpeedMultiplier = EditorGUILayout.FloatField("SpeedMultiplier : ", config.SpeedMultiplier);
 
                 if (GUILayout.Button("DeleteConfig"))
                 {
@@ -40,28 +40,51 @@ namespace MoonActive.Scripts.Editor
                 }
                 EditorGUILayout.Space();
             }
-
-            if (GUILayout.Button("READ DATA"))
-                Read();
-
+            
             if (GUILayout.Button("Add Config"))
                 _configs.Add(new Config());
 
-            if (GUILayout.Button("SAVE"))
+            EditorGUILayout.Space();
+            EditorGUILayout.Space();
+
+            if (GUILayout.Button("Read Data From XML"))
+                ReadXML();
+            
+            if (GUILayout.Button("Read Data From Json"))
+                ReadJson();
+            
+            EditorGUILayout.Space();
+            EditorGUILayout.Space();
+
+            if (GUILayout.Button("SAVE To XML"))
                 SaveXML();
+            
+            if (GUILayout.Button("SAVE To Json"))
+                SaveJson();
             
             EditorGUILayout.EndScrollView();
         }
 
-        void Read()
+        void ReadXML()
         {
-            _gameConfigs = XMLManager.LoadData<GameConfigs>();
+            _gameConfigs = DataManager.LoadDataXML<GameConfigs>();
+            _configs = _gameConfigs.List;
+        }
+        
+        void ReadJson()
+        {
+            _gameConfigs = DataManager.LoadDataJson<GameConfigs>();
             _configs = _gameConfigs.List;
         }
 
         void SaveXML()
         {
-            XMLManager.SaveData(_gameConfigs);
+            DataManager.SaveDataXML(_gameConfigs);
+        }
+        
+        void SaveJson()
+        {
+            DataManager.SaveDataJson(_gameConfigs);
         }
     }
 }
