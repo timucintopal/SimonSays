@@ -7,7 +7,7 @@ public class M_DifficultiesMenu : PopupUI
 {
     bool isSelected = false;
 
-    public UnityAction<Config> OnDifficultySelect;
+    public static UnityAction<Config> OnDifficultySelect;
 
     GameConfigs _gameConfigs = new GameConfigs();
 

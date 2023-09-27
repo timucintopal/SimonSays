@@ -1,6 +1,7 @@
 using System.Collections;
 using MoonActive.Scripts;
 using MoonActive.Scripts.Managers;
+using MoonActive.Scripts.UI;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,12 +9,21 @@ public class M_Logic : Singleton<M_Logic>
 {
     public static UnityAction IsFirstEntry;
     public static UnityAction OnGameStart;
+    public static UnityAction OnPlayerNameReady;
 
-    bool isWaiting = false;
+    static bool isWaiting = false;
+
+    public static void IsDone ()
+    {
+        isWaiting = true;
+    }
+
+    void DifficultyReady(Config _config)
+    {
+        
+    }
 
     WaitUntil _waitEnds;
-
-    public static UnityAction OnPlayerNameReady;
 
     private void Awake()
     {
@@ -23,6 +33,13 @@ public class M_Logic : Singleton<M_Logic>
     void OnEnable()
     {
         M_FileReader.OnDataLoad += StartGame;
+        M_DifficultiesMenu.OnDifficultySelect += DifficultyReady;
+    }
+    
+    void OnDisable()
+    {
+        M_FileReader.OnDataLoad -= StartGame;
+        M_DifficultiesMenu.OnDifficultySelect -= DifficultyReady;
     }
 
     void StartGame(GameConfigs arg0)
@@ -42,13 +59,11 @@ public class M_Logic : Singleton<M_Logic>
     {
         yield return new WaitForSeconds(1);
         IsFirstEntry?.Invoke();
-        
-        M_PlayerName.OnNameSave += ()=> WaitStatus(true);
 
         yield return _waitEnds;
-        M_PlayerName.OnNameSave -= ()=> WaitStatus(true);
-        
+        WaitStatus(false);
         OnPlayerNameReady?.Invoke();
-        
+
+        // yield return _waitEnds;
     }
 }

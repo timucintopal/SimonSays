@@ -25,7 +25,7 @@ namespace MoonActive.Scripts.Interface
         public void Close()
         {
             _bgImg.DOFade(0, 1).OnComplete(()=> _bgImg.transform.localScale = Vector3.zero);
-            _menu.DOScale(Vector3.zero,.5f).SetDelay(.25f);
+            _menu.DOScale(Vector3.zero,0).SetDelay(.25f);
         }
     }
 }
