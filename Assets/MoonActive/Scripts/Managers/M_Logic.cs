@@ -1,4 +1,5 @@
 using System.Collections;
+using MoonActive.Scripts;
 using MoonActive.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,23 +20,29 @@ public class M_Logic : Singleton<M_Logic>
         _waitEnds = new WaitUntil(() => isWaiting);
     }
 
-    void WaitStatus(bool newStatus)
+    void OnEnable()
     {
-        isWaiting = newStatus;
+        M_FileReader.OnDataLoad += StartGame;
     }
-    
-    void Start()
+
+    void StartGame(GameConfigs arg0)
     {
         if (M_PlayerPrefs.CheckFirstEntry())
             StartCoroutine(GameStartFirstEntry());
         else
             OnPlayerNameReady?.Invoke();
     }
+
+    void WaitStatus(bool newStatus)
+    {
+        isWaiting = newStatus;
+    }
     
     IEnumerator GameStartFirstEntry()
     {
         yield return new WaitForSeconds(1);
         IsFirstEntry?.Invoke();
+        
         M_PlayerName.OnNameSave += ()=> WaitStatus(true);
 
         yield return _waitEnds;
