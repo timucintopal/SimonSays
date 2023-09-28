@@ -17,12 +17,16 @@ namespace MoonActive.Scripts.ScriptableObject
     {
         public GameObject ButtonPrefab;
 
-        [Space]
+        [Space] 
+        public float spawnDelay;
         public float xOffset;
         public float yOffset;
 
         [Space] 
         public List<SpawnPos> SpawnPosList = new List<SpawnPos>();
+
+        [Space] 
+        public List<Color> ButtonSelectColors = new List<Color>();
 
         public List<Vector3> GetSpawnList(int buttonAmount)
         {

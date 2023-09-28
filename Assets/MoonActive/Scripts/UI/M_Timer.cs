@@ -1,17 +1,20 @@
-using System;
 using DG.Tweening;
 using MoonActive.Scripts;
+using MoonActive.Scripts.Managers;
 using TMPro;
 using UnityEngine;
 
 public class M_Timer : MonoBehaviour
 {
-    Config _currentConfig;
+    Config CurrentConfig => M_Logic.CurrentConfig;
     
     [SerializeField] TextMeshProUGUI _timerText;
     RectTransform _rectTransform;
 
+    public static bool IsCounting => _isCounting;
+    static readonly bool _isCounting = false;
     float _timer;
+    
     private float Timer
     {
         get => _timer;
@@ -24,8 +27,7 @@ public class M_Timer : MonoBehaviour
         }
     }
 
-
-    bool _isCounting = false;
+    
     
     private void Awake()
     {
@@ -36,23 +38,22 @@ public class M_Timer : MonoBehaviour
 
     private void OnEnable()
     {
-        M_Logic.OnGameStart += InitTimer;
+        M_Logic.OnInitGame += InitTimer;
     }
     
     private void OnDisable()
     {
-        M_Logic.OnGameStart -= InitTimer;
+        M_Logic.OnInitGame -= InitTimer;
     }
 
-    private void InitTimer(Config arg0)
+    private void InitTimer()
     {
-        _currentConfig = arg0;
         
     }
 
     void Open()
     {
-        Timer = _currentConfig.Duration;
+        Timer = CurrentConfig.Duration;
         _rectTransform.DOAnchorPosY(-200, .5f).SetEase(Ease.OutExpo);
     }
     

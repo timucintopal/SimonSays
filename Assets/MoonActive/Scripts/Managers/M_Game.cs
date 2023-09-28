@@ -1,25 +1,28 @@
 using MoonActive.Scripts;
+using MoonActive.Scripts.Managers;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class M_Game : MonoBehaviour
 {
-    // Config _config => M_Logic.;
-    
-    // private void OnEnable()
-    // {
-    //     M_Logic.OnGameStart += InitButtons;
-    // }
-    //     
-    // private void OnDisable()
-    // {
-    //     M_Logic.OnGameStart -= InitButtons;
-    // }
+    Config CurrentConfig => M_Logic.CurrentConfig;
 
-    void SetConfig()
+    
+    private void OnEnable()
+    {
+        M_Button.OnButtonsReady += StartGame;
+    }
+        
+    private void OnDisable()
+    {
+        M_Button.OnButtonsReady -= StartGame;
+    }
+
+    void StartGame()
     {
         
     }
     
-    void StartGame()
+    
     
 }

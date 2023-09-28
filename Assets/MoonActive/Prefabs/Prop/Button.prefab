@@ -177,7 +177,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf0f608a4c7d458d8581c554a16cf4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InnerButton: {fileID: 1754586346452975810}
+  innerButton: {fileID: 1754586346452975810}
+  innerSprite: {fileID: 1754586346452975811}
+  _selectColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!54 &1754586345966796395
 Rigidbody:
   m_ObjectHideFlags: 0

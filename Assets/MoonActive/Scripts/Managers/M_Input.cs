@@ -29,7 +29,6 @@ namespace MoonActive.Scripts.Managers
 
                 if (rb.TryGetComponent(out ButtonController script))
                 {
-                    Debug.Log("Button FOUND ! ");
                     script.OnClick();
                 }
             }
