@@ -12,7 +12,7 @@ public class M_Logic : Singleton<M_Logic>
 
     static bool isWaiting = false;
 
-    Config _currentConfig;
+    public static Config CurrentConfig;
 
     public static void IsDone ()
     {
@@ -22,6 +22,8 @@ public class M_Logic : Singleton<M_Logic>
     void DifficultyReady(Config config)
     {
         // StartCoroutine(GameLogicStart());
+
+        CurrentConfig = config;
         
         OnGameStart?.Invoke(config);
     }

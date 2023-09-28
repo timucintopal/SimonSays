@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using MoonActive.Scripts.Controller;
 using MoonActive.Scripts.ScriptableObject;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace MoonActive.Scripts.Managers
 {
@@ -18,6 +18,8 @@ namespace MoonActive.Scripts.Managers
 
         readonly List<ButtonController> _buttonControllers = new List<ButtonController>();
         Stack<ButtonController> _buttonStack = new Stack<ButtonController>();
+
+        public static UnityAction OnButtonsReady;
 
         private void OnEnable()
         {
@@ -53,7 +55,7 @@ namespace MoonActive.Scripts.Managers
                 button.transform.position = SpawnPosList[i];
             }
         
-            
+            OnButtonsReady?.Invoke();
         }
     }
 }
