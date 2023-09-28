@@ -1,26 +1,29 @@
 using System.Collections;
 using MoonActive.Scripts;
 using MoonActive.Scripts.Managers;
-using MoonActive.Scripts.UI;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class M_Logic : Singleton<M_Logic>
 {
     public static UnityAction IsFirstEntry;
-    public static UnityAction OnGameStart;
+    public static UnityAction<Config> OnGameStart;
     public static UnityAction OnPlayerNameReady;
 
     static bool isWaiting = false;
+
+    Config _currentConfig;
 
     public static void IsDone ()
     {
         isWaiting = true;
     }
 
-    void DifficultyReady(Config _config)
+    void DifficultyReady(Config config)
     {
+        // StartCoroutine(GameLogicStart());
         
+        OnGameStart?.Invoke(config);
     }
 
     WaitUntil _waitEnds;
@@ -66,4 +69,5 @@ public class M_Logic : Singleton<M_Logic>
 
         // yield return _waitEnds;
     }
+
 }

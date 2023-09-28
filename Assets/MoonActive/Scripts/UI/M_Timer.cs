@@ -1,14 +1,15 @@
-using System;
 using DG.Tweening;
+using MoonActive.Scripts;
 using TMPro;
 using UnityEngine;
 
 public class M_Timer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI _timerText;
-
-
     RectTransform _rectTransform;
+
+
+    Config _currentConfig;
 
     private void Awake()
     {
@@ -17,8 +18,7 @@ public class M_Timer : MonoBehaviour
         _rectTransform.anchoredPosition = Vector2.up * 100;
     }
 
-
-    void Init()
+    void InitTimer()
     {
         
     }
