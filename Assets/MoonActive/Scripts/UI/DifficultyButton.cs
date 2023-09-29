@@ -1,38 +1,42 @@
-using MoonActive.Scripts;
-using MoonActive.Scripts.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class DifficultyButton : ButtonUI
+namespace MoonActive.Scripts.UI
 {
-    [SerializeField] Button _button;
-
-    [SerializeField] TextMeshProUGUI labelText;
-    [SerializeField] TextMeshProUGUI durationText;
-    [SerializeField] TextMeshProUGUI repeatingText;
-
-
-    Config _config;
-
-    public Config Config
+    public class DifficultyButton : ButtonUI
     {
-        set
+        [SerializeField] Button _button;
+
+        [SerializeField] TextMeshProUGUI labelText;
+        [SerializeField] TextMeshProUGUI pointText;
+        [SerializeField] TextMeshProUGUI durationText;
+        [SerializeField] TextMeshProUGUI repeatingText;
+        [SerializeField] TextMeshProUGUI gameSpeedText;
+
+        Config _config;
+
+        public Config Config
         {
-            _config = value;
+            set
+            {
+                _config = value;
 
-            labelText.text = _config.DifficultyName;
-            durationText.text = "Duration : " + _config.Duration;
-            repeatingText.text = _config.IsRepeating ? "Repeat Mode : Yes" : "Repeat Mode : No";
+                labelText.text = _config.DifficultyName;
+                pointText.text = "Earn : " + _config.PointPerStep;
+                durationText.text = "Duration : " + _config.Duration;
+                repeatingText.text = _config.IsRepeating ? "Repeat Mode : Yes" : "Repeat Mode : No";
+                gameSpeedText.text = "Game Speed : " + _config.SpeedMultiplier + "x";
+            }
         }
-    }
 
-    public void Init(Config config, int index, UnityAction<int> callback)
-    {
-        Config = config;
+        public void Init(Config config, int index, UnityAction<int> callback)
+        {
+            Config = config;
         
-        _button.onClick.AddListener(()=> callback(index));
-    }
+            _button.onClick.AddListener(()=> callback(index));
+        }
     
+    }
 }

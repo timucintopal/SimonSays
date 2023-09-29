@@ -51,7 +51,7 @@ namespace MoonActive.Scripts.Controller
             // _speedMultiplier = currentConfigSpeedMultiplier;
             _index = index;
             selectColor = color;
-            transform.DOScale(Vector3.one, .75f).SetEase(Ease.OutExpo);
+            transform.DOScale(Vector3.one, .3f).SetEase(Ease.OutExpo);
         }
 
         void Close()

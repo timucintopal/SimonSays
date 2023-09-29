@@ -120,9 +120,8 @@ namespace MoonActive.Scripts.Managers
         {
             _selectedButtons.Clear();
             
-            Debug.Log("BUTTON SELECT ");
-
             yield return new WaitUntil(() => M_Timer.IsCounting);
+            yield return new WaitForSeconds(1);
             while (M_Timer.IsCounting)
             {
                 _playerSelectedButtons.Clear();
@@ -135,19 +134,19 @@ namespace MoonActive.Scripts.Managers
                     foreach (var selectedButton in _selectedButtons)
                     {
                         selectedButton.Select();
-                        yield return new WaitForSeconds(buttonData.colorDuration);
+                        yield return new WaitForSeconds(buttonData.colorDuration + .15f);
                     }
                 }
                 else
                 {
                     _selectedButtons.Last().Select();
-                    yield return new WaitForSeconds(buttonData.colorDuration);
+                    yield return new WaitForSeconds(buttonData.colorDuration + .15f);
                 }
                 
                 _buttonObserveState = ButtonObserveState.Observing;
                 // yield return new WaitUntil(()=> (lastButtonAmount != _selectedButtons.Count));
                 yield return new WaitUntil(()=> (_buttonObserveState == ButtonObserveState.Compare));
-                yield return new WaitForSeconds(buttonData.colorDuration);
+                yield return new WaitForSeconds(buttonData.colorDuration + 1);
 
                 if (!M_Timer.IsCounting)
                 {

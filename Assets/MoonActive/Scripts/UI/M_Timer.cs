@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using MoonActive.Scripts.Managers;
@@ -80,7 +79,7 @@ namespace MoonActive.Scripts.UI
             }
             _preGameTimerText.text = _preGamePhrases.Last();
             _preGameTimerText.rectTransform.DOScale(Vector3.one, .45f).SetEase(Ease.OutSine);
-            _preGameTimerText.DOFade(.8f, .75f).SetLoops(2, LoopType.Yoyo);
+            _preGameTimerText.DOFade(.8f, .6f).SetLoops(2, LoopType.Yoyo);
             _isCounting = true;
         }
     

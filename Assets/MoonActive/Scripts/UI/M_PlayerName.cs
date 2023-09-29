@@ -45,7 +45,7 @@ namespace MoonActive.Scripts.UI
             {
                 // M_PlayerPrefs.I.SetName(_nameField.text);
                 // OnNameSave?.Invoke();
-                M_Logic.IsDone();
+                
                 _nameField.text = "Saved!";
                 _isSaved = true;
                 StartCoroutine(Close());
@@ -82,6 +82,7 @@ namespace MoonActive.Scripts.UI
         IEnumerator Close()
         {
             yield return new WaitForSeconds(.5f);
+            M_Logic.IsDone();
             _bgImg.DOFade(0, .5f);
             _menuRectTransform.DOAnchorPosX(Screen.width + 200, .75f).SetEase(Ease.InExpo).OnComplete(()=> gameObject.SetActive(false));
         }
