@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   innerButton: {fileID: 1754586346452975810}
   innerSprite: {fileID: 1754586346452975811}
-  _selectColor: {r: 0, g: 0, b: 0, a: 0}
+  selectColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!54 &1754586345966796395
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -268,7 +268,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5c41c2dd1b1924bb684ece840006cff3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

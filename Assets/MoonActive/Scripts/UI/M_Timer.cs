@@ -1,70 +1,105 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
-using MoonActive.Scripts;
 using MoonActive.Scripts.Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class M_Timer : MonoBehaviour
+namespace MoonActive.Scripts.UI
 {
-    Config CurrentConfig => M_Logic.CurrentConfig;
-    
-    [SerializeField] TextMeshProUGUI _timerText;
-    RectTransform _rectTransform;
-
-    public static bool IsCounting => _isCounting;
-    static readonly bool _isCounting = false;
-    float _timer;
-    
-    private float Timer
+    public class M_Timer : MonoBehaviour
     {
-        get => _timer;
-        set
+        Config CurrentConfig => M_Logic.CurrentConfig;
+    
+        [SerializeField] TextMeshProUGUI _timerText;
+        [SerializeField] TextMeshProUGUI _preGameTimerText;
+        RectTransform _timerBarRect;
+
+        string[] _preGamePhrases = new string[]{"3","2","1","Go!"}; 
+
+        public static bool IsCounting => _isCounting;
+        
+        static bool _isCounting = false;
+        
+        public static UnityAction OnTimerFinish;
+        
+        float _timer;
+        Transform _timerBarParent;
+    
+        private float Timer
         {
-            _timer = value;
+            get => _timer;
+            set
+            {
+                _timer = Mathf.Clamp(value,0,99999);
 
-            _timerText.text = string.Format("{0:00}:{1:00}:", Mathf.FloorToInt(_timer / 60),
-                Mathf.FloorToInt(_timer % 60));
+                _timerText.text = string.Format("{0:00}:{1:00}", Mathf.FloorToInt(_timer / 60),
+                    Mathf.FloorToInt(_timer % 60));
+            }
         }
-    }
-
     
+        private void Awake()
+        {
+            _timerBarParent = transform.GetChild(0);
+            
+            _timerBarRect = _timerBarParent.GetComponent<RectTransform>();
+            _timerBarRect.anchoredPosition = Vector2.up * 100;
+        }
+
+        private void OnEnable()
+        {
+            M_StartButton.OnGameStart += InitTimer;
+        }
     
-    private void Awake()
-    {
-        _rectTransform = GetComponent<RectTransform>();
+        private void OnDisable()
+        {
+            M_StartButton.OnGameStart -= InitTimer;
+        }
 
-        _rectTransform.anchoredPosition = Vector2.up * 100;
-    }
+        private void InitTimer()
+        {
+            StartCoroutine(Open());
+        }
 
-    private void OnEnable()
-    {
-        M_Logic.OnInitGame += InitTimer;
-    }
+        IEnumerator Open()
+        {
+            Timer = CurrentConfig.Duration;
+            _timerBarRect.DOAnchorPosY(-200, .5f).SetEase(Ease.OutExpo);
+
+            _preGameTimerText.DOFade(0, 0);
+            _preGameTimerText.rectTransform.localScale = Vector3.zero;
+            
+            for (int i = 0; i < 3; i++)
+            {
+                _preGameTimerText.text = _preGamePhrases[i];
+                _preGameTimerText.rectTransform.DOScale(Vector3.one, .45f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.OutSine);
+                _preGameTimerText.DOFade(.8f, .45f).SetLoops(2, LoopType.Yoyo);
+                yield return new WaitForSeconds(1);
+            }
+            _preGameTimerText.text = _preGamePhrases.Last();
+            _preGameTimerText.rectTransform.DOScale(Vector3.one, .45f).SetEase(Ease.OutSine);
+            _preGameTimerText.DOFade(.8f, .75f).SetLoops(2, LoopType.Yoyo);
+            _isCounting = true;
+        }
     
-    private void OnDisable()
-    {
-        M_Logic.OnInitGame -= InitTimer;
-    }
+        void Close()
+        {
+            _timerBarRect.DOAnchorPosY(100, .5f).SetEase(Ease.InExpo);
+        }
 
-    private void InitTimer()
-    {
-        
-    }
-
-    void Open()
-    {
-        Timer = CurrentConfig.Duration;
-        _rectTransform.DOAnchorPosY(-200, .5f).SetEase(Ease.OutExpo);
-    }
-    
-    void Close()
-    {
-        
-    }
-
-    void Update()
-    {
-        if (_isCounting)
-            Timer -= Time.deltaTime;
+        void Update()
+        {
+            if (_isCounting)
+            {
+                Timer -= Time.deltaTime;
+                if (Timer == 0)
+                {
+                    _isCounting = false;
+                    OnTimerFinish?.Invoke();
+                }
+            }
+        }
     }
 }

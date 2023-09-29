@@ -1,9 +1,7 @@
 using DG.Tweening;
 using MoonActive.Scripts.Managers;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace MoonActive.Scripts.Controller
 {
@@ -13,10 +11,11 @@ namespace MoonActive.Scripts.Controller
         [SerializeField] SpriteRenderer innerSprite;
 
         bool isActive = false;
-
         int _index = 0;
+        float _colorDuration;
+        float _speedMultiplier = 1;
 
-        [SerializeField] Color _selectColor;
+        [SerializeField] Color selectColor;
 
         public void OnClick()
         {
@@ -26,30 +25,32 @@ namespace MoonActive.Scripts.Controller
         }
         
 
-        void Select(UnityAction callback = null)
+        public void Select(UnityAction callback = null)
         {
-            Debug.Log("SELECT COLOR");
-            innerSprite.DOColor(_selectColor, .5f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+            innerSprite.DOComplete();
+            Debug.Log("SELECT COLOR " + name);
+            innerSprite.DOColor(selectColor, _colorDuration/2 * _speedMultiplier).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
             {
               if(callback != null) callback?.Invoke();
             });
         }
 
+        // private void OnEnable()
+        // {
+        //     M_Button.OnButtonCollect += Close;
+        // }
+        //
+        // private void OnDisable()
+        // {
+        //     M_Button.OnButtonCollect -= Close;
+        // }
 
-        private void OnEnable()
+        public void Init(int index, Color color, float buttonDataColorDuration, float currentConfigSpeedMultiplier)
         {
-            M_Button.OnButtonCollect += Close;
-        }
-        
-        private void OnDisable()
-        {
-            M_Button.OnButtonCollect -= Close;
-        }
-
-        public void Init(int index, Color color)
-        {
+            _colorDuration = buttonDataColorDuration;
+            // _speedMultiplier = currentConfigSpeedMultiplier;
             _index = index;
-            _selectColor = color;
+            selectColor = color;
             transform.DOScale(Vector3.one, .75f).SetEase(Ease.OutExpo);
         }
 

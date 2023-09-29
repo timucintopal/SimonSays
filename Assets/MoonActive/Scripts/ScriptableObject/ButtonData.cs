@@ -19,6 +19,7 @@ namespace MoonActive.Scripts.ScriptableObject
 
         [Space] 
         public float spawnDelay;
+        public float colorDuration;
         public float xOffset;
         public float yOffset;
 
