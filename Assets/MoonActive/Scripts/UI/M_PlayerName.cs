@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using MoonActive.Scripts.Class;
 using MoonActive.Scripts.Managers;
 using TMPro;
 using UnityEngine;
@@ -45,8 +46,7 @@ namespace MoonActive.Scripts.UI
 
             if (CheckName())
             {
-                // M_PlayerPrefs.I.SetName(_nameField.text);
-                // OnNameSave?.Invoke();
+                PlayerPrefsData.SetPlayerName(_nameField.text);
                 
                 _nameField.text = "";
                 _placeholderField.text = "Saved!";

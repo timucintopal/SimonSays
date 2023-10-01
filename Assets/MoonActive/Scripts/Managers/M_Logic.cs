@@ -1,4 +1,5 @@
 using System.Collections;
+using MoonActive.Scripts.Class;
 using MoonActive.Scripts.UI;
 using UnityEngine;
 using UnityEngine.Events;
@@ -50,10 +51,10 @@ namespace MoonActive.Scripts.Managers
         void StartGame(GameConfigs arg0)
         {
             //If first entry
-            if (M_PlayerPrefs.CheckFirstEntry())
-                StartCoroutine(GameStartFirstEntry());
-            else
+            if (PlayerPrefsData.GetPlayerNameStatus())
                 OnPlayerNameReady?.Invoke();
+            else
+                StartCoroutine(GameStartFirstEntry());
         }
 
         void WaitStatus(bool newStatus)
