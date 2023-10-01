@@ -55,6 +55,7 @@ MonoBehaviour:
   _menu: {fileID: 149252355346382399}
   _enterButton: {fileID: 149252355042592229}
   _nameField: {fileID: 149252354349802048}
+  _placeholderField: {fileID: 149252354993630265}
 --- !u!1 &149252353792444933
 GameObject:
   m_ObjectHideFlags: 0

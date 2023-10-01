@@ -20,9 +20,7 @@ public static class Helper
         for (int i = values.Count - 1; i > 0; i--) 
         {
             int k = rand.Next(i + 1);
-            T value = values[k];
-            values[k] = values[i];
-            values[i] = value;
+            (values[k], values[i]) = (values[i], values[k]);
         }
     }
 

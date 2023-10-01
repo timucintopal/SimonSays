@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MoonActive.Scripts.Managers
 {
-    public abstract class DataManager
+    public static class DataManager
     {
         static readonly string XMLFilePath = Path.Combine(Application.dataPath , "Resources", "Data", "XML" ,"GameData.xml");
         static readonly string JsonFilePath = Path.Combine(Application.dataPath, "Resources", "Data", "JSON" ,"GameData.json");

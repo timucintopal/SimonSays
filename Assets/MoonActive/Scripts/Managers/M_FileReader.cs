@@ -1,31 +1,31 @@
-using MoonActive.Scripts;
-using MoonActive.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class M_FileReader : MonoBehaviour
+namespace MoonActive.Scripts.Managers
 {
-    [SerializeField] private FileReaderSO _fileReaderSO;
-
-    GameConfigs _gameConfigs;
-
-    public static UnityAction<GameConfigs> OnDataLoad;
-
-    public GameConfigs GameConfigs
+    public class M_FileReader : MonoBehaviour
     {
-        get => _gameConfigs;
-        set
+        [SerializeField] private FileReaderSO _fileReaderSO;
+
+        GameConfigs _gameConfigs;
+
+        public static UnityAction<GameConfigs> OnDataLoad;
+
+        public GameConfigs GameConfigs
         {
-            _gameConfigs = value;
-            OnDataLoad?.Invoke(_gameConfigs);
+            set
+            {
+                _gameConfigs = value;
+                OnDataLoad?.Invoke(_gameConfigs);
+            }
         }
-    }
             
-    private void Start()
-    {
-        if (_fileReaderSO.DataTypeTarget == DataType.XML)
-            GameConfigs = DataManager.LoadDataXML<GameConfigs>();
-        else
-            GameConfigs = DataManager.LoadDataXML<GameConfigs>();
+        private void Start()
+        {
+            if (_fileReaderSO.DataTypeTarget == DataType.XML)
+                GameConfigs = DataManager.LoadDataXML<GameConfigs>();
+            else
+                GameConfigs = DataManager.LoadDataJson<GameConfigs>();
+        }
     }
 }

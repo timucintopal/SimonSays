@@ -5,11 +5,12 @@ using UnityEngine.Events;
 
 namespace MoonActive.Scripts.Managers
 {
-    public class M_Logic : Singleton<M_Logic>
+    public class M_Logic : MonoBehaviour
     {
         public static UnityAction IsFirstEntry;
         public static UnityAction OnInitGame;
         public static UnityAction OnPlayerNameReady;
+        public static UnityAction OnSuccess;
 
         static bool isWaiting = false;
 
@@ -48,6 +49,7 @@ namespace MoonActive.Scripts.Managers
 
         void StartGame(GameConfigs arg0)
         {
+            //If first entry
             if (M_PlayerPrefs.CheckFirstEntry())
                 StartCoroutine(GameStartFirstEntry());
             else
@@ -67,8 +69,6 @@ namespace MoonActive.Scripts.Managers
             yield return _waitEnds;
             WaitStatus(false);
             OnPlayerNameReady?.Invoke();
-
-            // yield return _waitEnds;
         }
 
     }

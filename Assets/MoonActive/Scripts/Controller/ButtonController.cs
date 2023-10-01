@@ -10,7 +10,7 @@ namespace MoonActive.Scripts.Controller
         [SerializeField] Transform innerButton;
         [SerializeField] SpriteRenderer innerSprite;
 
-        bool isActive = false;
+        bool _isActive = false;
         int _index = 0;
         float _colorDuration;
         float _speedMultiplier = 1;
@@ -20,30 +20,30 @@ namespace MoonActive.Scripts.Controller
         public void OnClick()
         {
             if(!M_Button.Status) return;
-            innerButton.DOScale(-.15f, .15f).SetRelative(true).SetLoops(2, LoopType.Yoyo).OnComplete(() => Select());
+            innerButton.DOScale(-.05f, .05f).SetRelative(true).SetLoops(2, LoopType.Yoyo);//.OnComplete();
+            Select();
             M_Button.I.Selected(this);
         }
         
-
         public void Select(UnityAction callback = null)
         {
             innerSprite.DOComplete();
             Debug.Log("SELECT COLOR " + name);
-            innerSprite.DOColor(selectColor, _colorDuration/2 * _speedMultiplier).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+            innerSprite.DOColor(selectColor, _colorDuration * _speedMultiplier).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
             {
               if(callback != null) callback?.Invoke();
             });
         }
 
-        // private void OnEnable()
-        // {
-        //     M_Button.OnButtonCollect += Close;
-        // }
-        //
-        // private void OnDisable()
-        // {
-        //     M_Button.OnButtonCollect -= Close;
-        // }
+        private void OnEnable()
+        {
+            M_Button.ButtonCollectStart += Close;
+        }
+        
+        private void OnDisable()
+        {
+            M_Button.ButtonCollectStart -= Close;
+        }
 
         public void Init(int index, Color color, float buttonDataColorDuration, float currentConfigSpeedMultiplier)
         {
@@ -56,7 +56,7 @@ namespace MoonActive.Scripts.Controller
 
         void Close()
         {
-            transform.DOScale(Vector3.zero, .5f).SetEase(Ease.InExpo);
+            transform.DOScale(Vector3.zero, .5f).SetEase(Ease.InExpo).OnComplete(()=> gameObject.SetActive(false));
         }
 
         public void Color()

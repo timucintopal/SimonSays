@@ -16,6 +16,7 @@ namespace MoonActive.Scripts.UI
 
         [Space, SerializeField] Button _enterButton;
         [SerializeField] TMP_InputField _nameField;
+        [SerializeField] TextMeshProUGUI _placeholderField;
 
         bool _isSaved = false;
 
@@ -35,6 +36,7 @@ namespace MoonActive.Scripts.UI
         void OnDisable()
         {
             M_Logic.IsFirstEntry -= Open;
+            _enterButton.onClick.RemoveListener(TrySaveName);
         }
 
         void TrySaveName()
@@ -46,7 +48,8 @@ namespace MoonActive.Scripts.UI
                 // M_PlayerPrefs.I.SetName(_nameField.text);
                 // OnNameSave?.Invoke();
                 
-                _nameField.text = "Saved!";
+                _nameField.text = "";
+                _placeholderField.text = "Saved!";
                 _isSaved = true;
                 StartCoroutine(Close());
             }

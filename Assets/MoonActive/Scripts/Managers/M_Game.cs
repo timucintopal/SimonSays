@@ -1,7 +1,6 @@
 using MoonActive.Scripts;
 using MoonActive.Scripts.Managers;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class M_Game : MonoBehaviour
 {
@@ -22,7 +21,5 @@ public class M_Game : MonoBehaviour
     {
         
     }
-    
-    
     
 }

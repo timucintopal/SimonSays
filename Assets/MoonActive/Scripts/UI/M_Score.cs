@@ -31,17 +31,24 @@ namespace MoonActive.Scripts.UI
         {
             M_Button.OnButtonMatch += Increment;
             M_StartButton.OnGameStart += Open;
+            M_Button.ButtonCollectEnd += Close;
         }
         
         void OnDisable()
         {
             M_Button.OnButtonMatch -= Increment;
             M_StartButton.OnGameStart -= Open;
+            M_Button.ButtonCollectEnd -= Close;
         }
 
         private void Open()
         {
             _barParentRect.DOAnchorPosY(-300, .5f).SetEase(Ease.OutExpo);
+        }
+        
+        private void Close()
+        {
+            _barParentRect.DOAnchorPosY(200, .5f).SetEase(Ease.OutExpo);
         }
 
         public void Reset()
