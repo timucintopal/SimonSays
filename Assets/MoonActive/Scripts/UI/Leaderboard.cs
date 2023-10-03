@@ -10,6 +10,7 @@ namespace MoonActive.Scripts.UI
         public GameObject slotPrefab;
 
         private List<LeaderboardSlot> _slots = new List<LeaderboardSlot>();
+        
         private LeaderboardSlot _playerSlot;
         [SerializeField] private Transform slotParent;
 
@@ -38,16 +39,31 @@ namespace MoonActive.Scripts.UI
 
                 if(slotDataStatus)
                 {
-                    var data = PlayerPrefsData.GetSlotData(i);
-                    slot.Init(data.playerName, data.playerScore, targetPos, data.isPlayer);
+                    slot.SlotData = PlayerPrefsData.GetSlotData(i); 
+                    slot.Init(slot.SlotData, targetPos);
                 }
                 else
                 {
+                    SlotData newSlotData;
                     if(i+1 != leaderboardData.slotAmount)
-                        slot.Init(leaderboardData.userNames[i], 0 , targetPos);
+                    {
+                        newSlotData = new SlotData()
+                        {
+                            name = leaderboardData.userNames[i],
+                            score = 0,
+                            isPlayer = false
+                        };
+                        slot.Init(newSlotData, targetPos);
+                    }
                     else
                     {
-                        slot.Init(PlayerPrefsData.GetPlayerName(), 0, targetPos, true);
+                        newSlotData = new SlotData()
+                        {
+                            name = PlayerPrefsData.GetPlayerName(),
+                            score = 0,
+                            isPlayer = true
+                        };
+                        slot.Init(newSlotData, targetPos);
                         _playerSlot = slot;
                     }
                 }
@@ -62,16 +78,18 @@ namespace MoonActive.Scripts.UI
 
             foreach (var slot in _slots)
             {
-                
+                // random puan ver, playerın puanını ver
             }
         }
+        
+        //Eski sıralamayı gösterip bi animasyonlar player'ın yerini ayarla
 
         void SaveSlots()
         {
             for (var i = 0; i < _slots.Count; i++)
             {
                 var slot = _slots[i];
-                PlayerPrefsData.SetSlotData(slot.);
+                PlayerPrefsData.SetSlotData(slot.SlotData,i);
             }
         }
         

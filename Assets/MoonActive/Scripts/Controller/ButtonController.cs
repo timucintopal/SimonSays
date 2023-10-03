@@ -16,7 +16,17 @@ namespace MoonActive.Scripts.Controller
         float _speedMultiplier = 1;
 
         [SerializeField] Color selectColor;
-
+        
+        private void OnEnable()
+        {
+            M_Button.ButtonCollectStart += Close;
+        }
+        
+        private void OnDisable()
+        {
+            M_Button.ButtonCollectStart -= Close;
+        }
+        
         public void OnClick()
         {
             if(!M_Button.Status) return;
@@ -33,17 +43,11 @@ namespace MoonActive.Scripts.Controller
             {
               if(callback != null) callback?.Invoke();
             });
+            M_Audio.I.PlaySound(_index);
+            
         }
 
-        private void OnEnable()
-        {
-            M_Button.ButtonCollectStart += Close;
-        }
         
-        private void OnDisable()
-        {
-            M_Button.ButtonCollectStart -= Close;
-        }
 
         public void Init(int index, Color color, float buttonDataColorDuration, float currentConfigSpeedMultiplier)
         {

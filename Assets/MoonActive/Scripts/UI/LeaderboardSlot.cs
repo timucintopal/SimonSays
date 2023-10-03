@@ -18,21 +18,32 @@ namespace MoonActive.Scripts.UI
         [Space, SerializeField] private TextMeshProUGUI nameTxt;
         [SerializeField] private TextMeshProUGUI scoreTxt;
 
-
         private RectTransform _rectTransform;
+
+        private SlotData _slotData;
+        public SlotData SlotData
+        {
+            get => _slotData;
+            set
+            {
+                _slotData = value;
+                
+                normalBg.SetActive(!_slotData.isPlayer);
+                playerBg.SetActive(_slotData.isPlayer);
+
+                nameTxt.text = _slotData.name;
+                scoreTxt.text = _slotData.score.ToString();
+            }
+        }
 
         private void Awake()
         {
             _rectTransform = transform.GetComponent<RectTransform>();
         }
 
-        public void Init( string userName, int scoreAmount, Vector2 targetPos, bool isPlayer = false)
+        public void Init( SlotData data, Vector2 targetPos)
         {
-            normalBg.SetActive(!isPlayer);
-            playerBg.SetActive(isPlayer);
-
-            nameTxt.text = userName;
-            scoreTxt.text = scoreAmount.ToString();
+            SlotData = data;
 
             _rectTransform.anchoredPosition = targetPos;
         }
