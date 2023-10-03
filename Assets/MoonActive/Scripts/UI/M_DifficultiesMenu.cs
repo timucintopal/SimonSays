@@ -8,7 +8,7 @@ namespace MoonActive.Scripts.UI
 {
     public class M_DifficultiesMenu : PopupUI
     {
-        bool isSelected = false;
+        public static bool IsSelected = false;
 
         public static UnityAction<Config> OnDifficultySelect;
 
@@ -39,7 +39,7 @@ namespace MoonActive.Scripts.UI
 
         void InitMenu()
         {
-            isSelected = false;
+            IsSelected = false;
             var buttonHeight = difficultyButton.GetComponent<RectTransform>().sizeDelta.y;
 
             Debug.Log("HEIGHT " + buttonHeight);
@@ -61,8 +61,8 @@ namespace MoonActive.Scripts.UI
 
         public void DifficultySelect(int difficultyIndex)
         {
-            if (isSelected) return;
-            isSelected = true;
+            if (IsSelected) return;
+            IsSelected = true;
 
             StartCoroutine(CloseSeq(difficultyIndex));
         }
@@ -75,7 +75,7 @@ namespace MoonActive.Scripts.UI
             yield return new WaitForSeconds(.75f);
             
             OnDifficultySelect?.Invoke(_gameConfigs.List[difficultyIndex]);
-            isSelected = false;
+            IsSelected = false;
         }
     }
 }

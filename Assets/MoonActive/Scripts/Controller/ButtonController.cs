@@ -39,7 +39,7 @@ namespace MoonActive.Scripts.Controller
         {
             innerSprite.DOComplete();
             Debug.Log("SELECT COLOR " + name);
-            innerSprite.DOColor(selectColor, _colorDuration * _speedMultiplier).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+            innerSprite.DOColor(selectColor, _colorDuration / _speedMultiplier).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
             {
               if(callback != null) callback?.Invoke();
             });
@@ -47,12 +47,10 @@ namespace MoonActive.Scripts.Controller
             
         }
 
-        
-
         public void Init(int index, Color color, float buttonDataColorDuration, float currentConfigSpeedMultiplier)
         {
             _colorDuration = buttonDataColorDuration;
-            // _speedMultiplier = currentConfigSpeedMultiplier;
+            _speedMultiplier = currentConfigSpeedMultiplier;
             _index = index;
             selectColor = color;
             transform.DOScale(Vector3.one, .3f).SetEase(Ease.OutExpo);

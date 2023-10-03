@@ -1,16 +1,19 @@
 using DG.Tweening;
+using MoonActive.Scripts.Interface;
 using MoonActive.Scripts.Managers;
 using TMPro;
 using UnityEngine;
 
 namespace MoonActive.Scripts.UI
 {
-    public class M_Score : MonoBehaviour
+    public class M_Score : MonoBehaviour, IConfig
     {
         [SerializeField] TextMeshProUGUI scoreText;
         int _scoreAmount;
 
         private RectTransform _barParentRect;
+
+        private Config _currentConfig;
         
         public int ScoreAmount
         {
@@ -29,6 +32,7 @@ namespace MoonActive.Scripts.UI
 
         void OnEnable()
         {
+            M_DifficultiesMenu.OnDifficultySelect += GetConfig;
             M_Button.OnButtonMatch += Increment;
             M_StartButton.OnGameStart += Open;
             M_Button.ButtonCollectEnd += Close;
@@ -36,9 +40,15 @@ namespace MoonActive.Scripts.UI
         
         void OnDisable()
         {
+            M_DifficultiesMenu.OnDifficultySelect -= GetConfig;
             M_Button.OnButtonMatch -= Increment;
             M_StartButton.OnGameStart -= Open;
             M_Button.ButtonCollectEnd -= Close;
+        }
+
+        public void GetConfig(Config config)
+        {
+            _currentConfig = config;
         }
 
         private void Open()
@@ -58,9 +68,10 @@ namespace MoonActive.Scripts.UI
 
         public void Increment()
         {
-            ScoreAmount++;
+            ScoreAmount += _currentConfig.PointPerStep;
         }
 
 
+        
     }
 }

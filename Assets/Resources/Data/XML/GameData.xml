@@ -26,12 +26,12 @@
       <SpeedMultiplier>1.5</SpeedMultiplier>
     </Config>
     <Config>
-      <DifficultyName>Extremeee</DifficultyName>
-      <ButtonAmount>1</ButtonAmount>
+      <DifficultyName>Extreme</DifficultyName>
+      <ButtonAmount>3</ButtonAmount>
       <PointPerStep>2</PointPerStep>
-      <Duration>3</Duration>
+      <Duration>60</Duration>
       <IsRepeating>true</IsRepeating>
-      <SpeedMultiplier>1</SpeedMultiplier>
+      <SpeedMultiplier>5</SpeedMultiplier>
     </Config>
   </List>
 </GameConfigs>

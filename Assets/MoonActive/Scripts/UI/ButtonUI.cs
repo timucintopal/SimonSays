@@ -8,6 +8,8 @@ namespace MoonActive.Scripts.UI
     {
         public Button _button;
 
+        private bool _isClicked = false;
+        
         public void OnEnable()
         {
             _button.onClick.AddListener(ClickAnimation);
@@ -21,7 +23,8 @@ namespace MoonActive.Scripts.UI
         [ContextMenu("TEST")]
         private void ClickAnimation()
         {
-            transform.DOScale(-.1f, .15f).SetRelative(true).SetLoops(2, LoopType.Yoyo);
+            if(!M_DifficultiesMenu.IsSelected)
+                transform.DOScale(-.1f, .15f).SetRelative(true).SetLoops(2, LoopType.Yoyo);
         }
     }
 }

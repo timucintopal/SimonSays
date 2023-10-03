@@ -102,22 +102,37 @@ namespace MoonActive.Scripts.Managers
 
         public void Selected(ButtonController buttonController)
         {
-            playerSelectedButtons.Add(buttonController);
-            if (selectedButtons.Count == playerSelectedButtons.Count)
+            if(buttonController == selectedButtons[playerSelectedButtons.Count])
             {
-                _buttonMatch = selectedButtons.Last() == buttonController;
-                for (var i = 0; i < playerSelectedButtons.Count; i++)
+                playerSelectedButtons.Add(buttonController);
+
+                if (selectedButtons.Count == playerSelectedButtons.Count)
                 {
-                    var playerSelectedButton = playerSelectedButtons[i];
-                    
-                    if (playerSelectedButton == selectedButtons[i]) continue;
-                    
-                    _buttonMatch = false;
-                    break;
+                    _buttonMatch = true;
+                    _buttonObserveState = ButtonObserveState.Compare;
                 }
-                Debug.Log("BUTTON SELECT STATUS " + _buttonMatch);
+            }
+            else
+            {
+                _buttonMatch = false;
                 _buttonObserveState = ButtonObserveState.Compare;
             }
+            
+            // if (selectedButtons.Count == playerSelectedButtons.Count)
+            // {
+            //     _buttonMatch = selectedButtons.Last() == buttonController;
+            //     for (var i = 0; i < playerSelectedButtons.Count; i++)
+            //     {
+            //         var playerSelectedButton = playerSelectedButtons[i];
+            //         
+            //         if (playerSelectedButton == selectedButtons[i]) continue;
+            //         
+            //         _buttonMatch = false;
+            //         break;
+            //     }
+            //     Debug.Log("BUTTON SELECT STATUS " + _buttonMatch);
+            //     _buttonObserveState = ButtonObserveState.Compare;
+            // }
         }
         
         IEnumerator ButtonSelectSequence()
@@ -138,19 +153,19 @@ namespace MoonActive.Scripts.Managers
                     foreach (var selectedButton in selectedButtons)
                     {
                         selectedButton.Select();
-                        yield return new WaitForSeconds(buttonData.colorDuration + .15f);
+                        yield return new WaitForSeconds((buttonData.colorDuration + .15f) / CurrentConfig.SpeedMultiplier);
                     }
                 }
                 else
                 {
                     selectedButtons.Last().Select();
-                    yield return new WaitForSeconds(buttonData.colorDuration + .15f);
+                    yield return new WaitForSeconds((buttonData.colorDuration + .15f) / CurrentConfig.SpeedMultiplier);
                 }
                 
                 _buttonObserveState = ButtonObserveState.Observing;
                 // yield return new WaitUntil(()=> (lastButtonAmount != _selectedButtons.Count));
                 yield return new WaitUntil(()=> (_buttonObserveState == ButtonObserveState.Compare));
-                yield return new WaitForSeconds(buttonData.colorDuration + 1);
+                yield return new WaitForSeconds((buttonData.colorDuration + .25f) / CurrentConfig.SpeedMultiplier );
 
                 if (!M_Timer.IsCounting)
                 {
