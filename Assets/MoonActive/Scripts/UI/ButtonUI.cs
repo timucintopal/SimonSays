@@ -6,18 +6,18 @@ namespace MoonActive.Scripts.UI
 {
     public class ButtonUI : MonoBehaviour
     {
-        public Button _button;
+        public Button button;
 
         private bool _isClicked = false;
         
         public void OnEnable()
         {
-            _button.onClick.AddListener(ClickAnimation);
+            button.onClick.AddListener(ClickAnimation);
         }
     
         public void OnDisable()
         {
-            _button.onClick.RemoveListener(ClickAnimation);
+            button.onClick.RemoveListener(ClickAnimation);
         }
 
         [ContextMenu("TEST")]

@@ -50,14 +50,14 @@ namespace MoonActive.Scripts.UI
 
         private void OnEnable()
         {
-            M_Score.GameEndScore += GetScore;
+            ScoreManager.GameEndScore += GetScore;
             M_Timer.OnTimerFinish += Open;
             M_GameEnd.OnNextBtnClick += Close;
         }
         
         private void OnDisable()
         {
-            M_Score.GameEndScore -= GetScore;
+            ScoreManager.GameEndScore -= GetScore;
             M_Timer.OnTimerFinish -= Open;
             M_GameEnd.OnNextBtnClick -= Close;
         }

@@ -25,7 +25,6 @@ namespace MoonActive.Scripts.Managers
         void DifficultyReady(Config config)
         {
             CurrentConfig = config;
-        
             OnInitGame?.Invoke();
         }
 

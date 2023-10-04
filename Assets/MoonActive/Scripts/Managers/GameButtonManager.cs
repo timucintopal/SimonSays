@@ -15,7 +15,7 @@ namespace MoonActive.Scripts.Managers
         Observing,
     }
     
-    public class GameButtons : Singleton<GameButtons>
+    public class GameButtonManager : Singleton<GameButtonManager>
     {
         [SerializeField] ButtonData buttonData;
         
@@ -24,8 +24,8 @@ namespace MoonActive.Scripts.Managers
         List<Vector3> SpawnPosList => buttonData.GetSpawnList(ButtonAmount);
         List<Color> ColorList => buttonData.ButtonSelectColors;
         
-        private List<ButtonController> selectedButtons = new List<ButtonController>();
-        private List<ButtonController> playerSelectedButtons = new List<ButtonController>();
+        private List<ButtonController> _selectedButtons = new List<ButtonController>();
+        private List<ButtonController> _playerSelectedButtons = new List<ButtonController>();
         
         private List<ButtonController> _buttonControllers = new List<ButtonController>();
         private Stack<ButtonController> _buttonStack = new Stack<ButtonController>();
@@ -36,12 +36,12 @@ namespace MoonActive.Scripts.Managers
         public static UnityAction OnButtonMatch;
         public static UnityAction OnButtonMatchFail;
 
-        WaitForSeconds _buttonSpawnDelay ;
+        private WaitForSeconds _buttonSpawnDelay ;
 
         static ButtonObserveState _buttonObserveState;
         public static bool Status => _buttonObserveState == ButtonObserveState.Observing;
 
-        bool _buttonMatch = false;
+        private bool _buttonMatch;
 
         private void Awake()
         {
@@ -101,11 +101,11 @@ namespace MoonActive.Scripts.Managers
 
         public void Selected(ButtonController buttonController)
         {
-            if(buttonController == selectedButtons[playerSelectedButtons.Count])
+            if(buttonController == _selectedButtons[_playerSelectedButtons.Count])
             {
-                playerSelectedButtons.Add(buttonController);
+                _playerSelectedButtons.Add(buttonController);
 
-                if (selectedButtons.Count == playerSelectedButtons.Count)
+                if (_selectedButtons.Count == _playerSelectedButtons.Count)
                 {
                     _buttonMatch = true;
                     _buttonObserveState = ButtonObserveState.Compare;
@@ -120,18 +120,18 @@ namespace MoonActive.Scripts.Managers
         
         IEnumerator ButtonSelectSequence()
         {
-            selectedButtons.Clear();
+            _selectedButtons.Clear();
             
             yield return new WaitUntil(() => M_Timer.IsCounting);
             yield return new WaitForSeconds(1);
             while (M_Timer.IsCounting)
             {
-                playerSelectedButtons.Clear();
-                selectedButtons.Add(_buttonControllers[Random.Range(0,_buttonControllers.Count)]);
+                _playerSelectedButtons.Clear();
+                _selectedButtons.Add(_buttonControllers[Random.Range(0,_buttonControllers.Count)]);
                 
                 if(CurrentConfig.IsRepeating)
                 {
-                    foreach (var selectedButton in selectedButtons)
+                    foreach (var selectedButton in _selectedButtons)
                     {
                         selectedButton.Select();
                         yield return new WaitForSeconds((buttonData.colorDuration + .15f) / CurrentConfig.SpeedMultiplier);
@@ -139,7 +139,7 @@ namespace MoonActive.Scripts.Managers
                 }
                 else
                 {
-                    selectedButtons.Last().Select();
+                    _selectedButtons.Last().Select();
                     yield return new WaitForSeconds((buttonData.colorDuration + .15f) / CurrentConfig.SpeedMultiplier);
                 }
                 

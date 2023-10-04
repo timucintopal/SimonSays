@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using MoonActive.Scripts.Class;
 using MoonActive.Scripts.Interface;
 using MoonActive.Scripts.Managers;
 using TMPro;
@@ -31,8 +32,8 @@ namespace MoonActive.Scripts.UI
         private void OnEnable()
         {
             M_Timer.OnTimerFinish += SuccessGame;
-            GameButtons.OnButtonMatchFail += FailGame;
-            GameButtons.ButtonCollectEnd += CloseAllObject;
+            GameButtonManager.OnButtonMatchFail += FailGame;
+            GameButtonManager.ButtonCollectEnd += CloseAllObject;
             Leaderboard.OnLeaderboardSeqEnd += OpenNextButton;
             
             TryAgainButton.onClick.AddListener(()=>Invoke(OnTryAgainBtnClick));
@@ -42,8 +43,8 @@ namespace MoonActive.Scripts.UI
         private void OnDisable()
         {
             M_Timer.OnTimerFinish -= SuccessGame;
-            GameButtons.OnButtonMatchFail -= FailGame;
-            GameButtons.ButtonCollectEnd -= CloseAllObject;
+            GameButtonManager.OnButtonMatchFail -= FailGame;
+            GameButtonManager.ButtonCollectEnd -= CloseAllObject;
             Leaderboard.OnLeaderboardSeqEnd -= OpenNextButton;
             
             TryAgainButton.onClick.RemoveListener(()=>Invoke(OnTryAgainBtnClick));

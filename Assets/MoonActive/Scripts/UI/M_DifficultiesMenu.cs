@@ -1,4 +1,5 @@
 using System.Collections;
+using MoonActive.Scripts.Class;
 using MoonActive.Scripts.Interface;
 using MoonActive.Scripts.Managers;
 using UnityEngine;
@@ -21,14 +22,14 @@ namespace MoonActive.Scripts.UI
         {
             Managers.FileReader.OnDataLoad += LoadData;
             GameMenuManager.OnPlayerNameReady += Open;
-            GameButtons.ButtonCollectEnd += Open;
+            GameButtonManager.ButtonCollectEnd += Open;
         }
         
         private void OnDisable()
         {
             Managers.FileReader.OnDataLoad -= LoadData;
             GameMenuManager.OnPlayerNameReady -= Open;
-            GameButtons.ButtonCollectEnd -= Open;
+            GameButtonManager.ButtonCollectEnd -= Open;
         }
 
         void LoadData(GameConfigs gameConfigs)

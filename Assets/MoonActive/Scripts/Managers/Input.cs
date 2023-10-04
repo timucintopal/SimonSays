@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace MoonActive.Scripts.Managers
 {
-    public class M_Input : MonoBehaviour
+    public class Input : MonoBehaviour
     {
-        Camera _camera;
-        Ray _ray;
-        RaycastHit _hit;
+        private Camera _camera;
+        private Ray _ray;
+        private RaycastHit _hit;
 
         private void Awake()
         {
@@ -16,13 +16,13 @@ namespace MoonActive.Scripts.Managers
 
         private void Update()
         {
-            if(Input.GetMouseButtonDown(0))
+            if(UnityEngine.Input.GetMouseButtonDown(0))
                 Ray();
         }
 
         void Ray()
         {
-            _ray = _camera.ScreenPointToRay(Input.mousePosition);
+            _ray = _camera.ScreenPointToRay(UnityEngine.Input.mousePosition);
             if (Physics.Raycast(_ray, out _hit, Mathf.Infinity, LayerMask.GetMask("Button")))
             {
                 var rb = _hit.collider.attachedRigidbody;

@@ -10,41 +10,39 @@ namespace MoonActive.Scripts.Controller
         [SerializeField] Transform innerButton;
         [SerializeField] SpriteRenderer innerSprite;
 
-        bool _isActive = false;
-        int _index = 0;
-        float _colorDuration;
-        float _speedMultiplier = 1;
+        private bool _isActive = false;
+        private int _index;
+        private float _colorDuration;
+        private float _speedMultiplier = 1;
 
         [SerializeField] Color selectColor;
         
         private void OnEnable()
         {
-            GameButtons.ButtonCollectStart += Close;
+            GameButtonManager.ButtonCollectStart += Close;
         }
         
         private void OnDisable()
         {
-            GameButtons.ButtonCollectStart -= Close;
+            GameButtonManager.ButtonCollectStart -= Close;
         }
         
         public void OnClick()
         {
-            if(!GameButtons.Status) return;
+            if(!GameButtonManager.Status) return;
             innerButton.DOScale(-.05f, .05f).SetRelative(true).SetLoops(2, LoopType.Yoyo);//.OnComplete();
             Select();
-            GameButtons.I.Selected(this);
+            GameButtonManager.I.Selected(this);
         }
         
         public void Select(UnityAction callback = null)
         {
             innerSprite.DOComplete();
-            Debug.Log("SELECT COLOR " + name);
             innerSprite.DOColor(selectColor, _colorDuration / _speedMultiplier).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
             {
               if(callback != null) callback?.Invoke();
             });
-            M_Audio.I.PlaySound(_index);
-            
+            AudioManager.I.PlaySound(_index);
         }
 
         public void Init(int index, Color color, float buttonDataColorDuration, float currentConfigSpeedMultiplier)
@@ -59,11 +57,6 @@ namespace MoonActive.Scripts.Controller
         void Close()
         {
             transform.DOScale(Vector3.zero, .5f).SetEase(Ease.InExpo).OnComplete(()=> gameObject.SetActive(false));
-        }
-
-        public void Color()
-        {
-            
         }
     }
 }

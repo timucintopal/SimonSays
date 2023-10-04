@@ -21,12 +21,12 @@ namespace MoonActive.Scripts.UI
 
         private void OnEnable()
         {
-            GameButtons.OnButtonsReady += Open;
+            GameButtonManager.OnButtonsReady += Open;
         }
         
         private void OnDisable()
         {
-            GameButtons.OnButtonsReady -= Open;
+            GameButtonManager.OnButtonsReady -= Open;
         }
 
         [ContextMenu("Open")]

@@ -33,7 +33,6 @@ namespace MoonActive.Scripts.Managers
         
         public static void SaveDataJson<T>(T data)
         {
-            Debug.Log("Save! " + Application.persistentDataPath);
             string levelTypeToJson = JsonUtility.ToJson(data);
             
             File.WriteAllText(JsonFilePath, levelTypeToJson);
@@ -45,9 +44,9 @@ namespace MoonActive.Scripts.Managers
             if (jsonFile)
             {
                 string jsonTextFile = File.ReadAllText(JsonFilePath);
-                return (T)JsonUtility.FromJson<T>(jsonTextFile);
+                return JsonUtility.FromJson<T>(jsonTextFile);
             }
-            Debug.LogError("FILE NULL");
+            Debug.LogError("JSON file not found.");
             return default;
         }
     }

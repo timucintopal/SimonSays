@@ -717,7 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 515d5155aeff84f4eb68a8dca11ee463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 5116972120231561160}
+  button: {fileID: 5116972120231561160}
   _button: {fileID: 5116972120231561160}
   labelText: {fileID: 5130177880400459912}
   pointText: {fileID: 4211614869868080815}

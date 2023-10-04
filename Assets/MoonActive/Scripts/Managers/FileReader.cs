@@ -10,7 +10,6 @@ namespace MoonActive.Scripts.Managers
         private GameConfigs _gameConfigs;
 
         public static UnityAction<GameConfigs> OnDataLoad;
-
             
         private void Start()
         {

@@ -7,16 +7,14 @@ using UnityEngine.Events;
 
 namespace MoonActive.Scripts.UI
 {
-    public class M_Score : MonoBehaviour, IConfig
+    public class ScoreManager : MonoBehaviour, IConfig
     {
-        [SerializeField] TextMeshProUGUI scoreText;
-        int _scoreAmount;
-
+        [SerializeField] private TextMeshProUGUI scoreText;
         private RectTransform _barParentRect;
-
         private Config _currentConfig;
         
-        public int ScoreAmount
+        private int _scoreAmount;
+        private int ScoreAmount
         {
             get => _scoreAmount;
             set
@@ -36,18 +34,18 @@ namespace MoonActive.Scripts.UI
         void OnEnable()
         {
             M_DifficultiesMenu.OnDifficultySelect += GetConfig;
-            GameButtons.OnButtonMatch += Increment;
+            GameButtonManager.OnButtonMatch += Increment;
             M_StartButton.OnGameStart += Open;
-            GameButtons.ButtonCollectEnd += Close;
+            GameButtonManager.ButtonCollectEnd += Close;
             M_Timer.OnTimerFinish += SendScore;
         }
         
         void OnDisable()
         {
             M_DifficultiesMenu.OnDifficultySelect -= GetConfig;
-            GameButtons.OnButtonMatch -= Increment;
+            GameButtonManager.OnButtonMatch -= Increment;
             M_StartButton.OnGameStart -= Open;
-            GameButtons.ButtonCollectEnd -= Close;
+            GameButtonManager.ButtonCollectEnd -= Close;
             M_Timer.OnTimerFinish -= SendScore;
         }
 
@@ -63,6 +61,7 @@ namespace MoonActive.Scripts.UI
 
         private void Open()
         {
+            ScoreAmount = 0;
             _barParentRect.DOAnchorPosY(-300, .5f).SetEase(Ease.OutExpo);
         }
         

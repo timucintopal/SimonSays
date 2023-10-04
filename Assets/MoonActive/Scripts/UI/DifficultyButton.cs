@@ -1,19 +1,16 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 namespace MoonActive.Scripts.UI
 {
     public class DifficultyButton : ButtonUI
     {
-        [SerializeField] Button _button;
-
-        [SerializeField] TextMeshProUGUI labelText;
-        [SerializeField] TextMeshProUGUI pointText;
-        [SerializeField] TextMeshProUGUI durationText;
-        [SerializeField] TextMeshProUGUI repeatingText;
-        [SerializeField] TextMeshProUGUI gameSpeedText;
+        [SerializeField] private TextMeshProUGUI labelText;
+        [SerializeField] private TextMeshProUGUI pointText;
+        [SerializeField] private TextMeshProUGUI durationText;
+        [SerializeField] private TextMeshProUGUI repeatingText;
+        [SerializeField] private TextMeshProUGUI gameSpeedText;
 
         Config _config;
 
@@ -35,7 +32,7 @@ namespace MoonActive.Scripts.UI
         {
             Config = config;
         
-            _button.onClick.AddListener(()=> callback(index));
+            button.onClick.AddListener(()=> callback(index));
         }
     
     }

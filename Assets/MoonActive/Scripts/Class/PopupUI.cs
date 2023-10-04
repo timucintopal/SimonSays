@@ -2,12 +2,12 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace MoonActive.Scripts.Interface
+namespace MoonActive.Scripts.Class
 {
     public class PopupUI : MonoBehaviour
     {
-        Image _bgImg;
-        Transform _menu;
+        private Image _bgImg;
+        private Transform _menu;
         
         public void Awake()
         {
