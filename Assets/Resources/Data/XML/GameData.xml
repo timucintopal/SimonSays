@@ -29,7 +29,7 @@
       <DifficultyName>Extreme</DifficultyName>
       <ButtonAmount>3</ButtonAmount>
       <PointPerStep>2</PointPerStep>
-      <Duration>60</Duration>
+      <Duration>5</Duration>
       <IsRepeating>true</IsRepeating>
       <SpeedMultiplier>5</SpeedMultiplier>
     </Config>

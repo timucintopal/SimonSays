@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using MoonActive.Scripts.Interface;
 using MoonActive.Scripts.Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace MoonActive.Scripts.UI
     {
         [SerializeField] Transform failTextTransform;
         [SerializeField] Transform timesUpTextTransform;
+        [SerializeField] TextMeshProUGUI timesUpText;
 
         [SerializeField] Button TryAgainButton;
         [SerializeField] Button NextButton;
@@ -50,7 +52,8 @@ namespace MoonActive.Scripts.UI
         
         void SuccessGame()
         {
-            OpenObject(timesUpTextTransform);
+            timesUpText.DOFade(1, 0);
+            OpenObject(timesUpTextTransform, true, timesUpText);
             OnGameSuccess?.Invoke();
             OnLevelEnd?.Invoke();
         }
@@ -63,10 +66,15 @@ namespace MoonActive.Scripts.UI
             OnLevelEnd?.Invoke();
         }
 
-        void OpenObject(Transform target)
+        void OpenObject(Transform target, bool autoClose = false, TextMeshProUGUI text = null)
         {
+            if(autoClose)
+                if (text)
+                    text.DOFade(0, 1).SetDelay(1);
+            
             target.DOScale(Vector3.one, 1).SetEase(Ease.OutExpo);
             _openedTransforms.Push(target);
+            Debug.Log("PUSH Open " + target.name);
         }
         
         void CloseAllObject()
@@ -75,7 +83,7 @@ namespace MoonActive.Scripts.UI
             for (int i = 0; i < loopAmount; i++)
             {
                 var openedTransform = _openedTransforms.Pop();
-                
+                Debug.Log("PUSH Close " + openedTransform.name);
                 openedTransform.DOKill();
                 openedTransform.DOScale(Vector3.zero, .5f).SetEase(Ease.InExpo);
             }
@@ -83,7 +91,7 @@ namespace MoonActive.Scripts.UI
 
         void OpenNextButton()
         {
-            NextButton.transform.DOScale(Vector3.one, 1).SetEase(Ease.OutBack);
+            OpenObject(NextButton.transform);
         }
 
         void Invoke(UnityAction callback)

@@ -15,9 +15,11 @@ namespace MoonActive.Scripts.UI
 
         public static UnityAction OnLeaderboardSeqEnd;
 
-        [SerializeField] private List<LeaderboardSlot> _slots = new List<LeaderboardSlot>();
-        [SerializeField] private List<SlotData> _slotDatas = new List<SlotData>();
-        [SerializeField] private LeaderboardSlot _playerSlot;
+        private List<LeaderboardSlot> _slots = new List<LeaderboardSlot>();
+        private LeaderboardSlot _playerSlot;
+        private List<SlotData> _slotDatas = new List<SlotData>();
+        private SlotData _playerData;
+        
         [SerializeField] private Transform slotParent;
 
         private float SlotTopMargin => leaderboardData.slotTopMargin;
@@ -33,6 +35,7 @@ namespace MoonActive.Scripts.UI
         private WaitForSeconds _waitSlotOpen;
         private WaitForSeconds _waitSlotMove;
         private WaitForSeconds _waitPlayerScoreInc;
+        private WaitForSeconds _waitLbOpenDelay;
         
         #endregion
         
@@ -42,16 +45,21 @@ namespace MoonActive.Scripts.UI
             _waitSlotMove = new WaitForSeconds(leaderboardData.slotMoveDuration);
             _waitPlayerScoreInc = new WaitForSeconds(leaderboardData.playerScoreIncDuration);
             _waitSlotOpen = new WaitForSeconds(leaderboardData.slotOpenDuration);
+            _waitLbOpenDelay = new WaitForSeconds(leaderboardData.leaderboardOpenDelay);
         }
 
         private void OnEnable()
         {
             M_Score.GameEndScore += GetScore;
+            M_Timer.OnTimerFinish += Open;
+            M_GameEnd.OnNextBtnClick += Close;
         }
         
         private void OnDisable()
         {
             M_Score.GameEndScore -= GetScore;
+            M_Timer.OnTimerFinish -= Open;
+            M_GameEnd.OnNextBtnClick -= Close;
         }
 
         private void GetScore(int arg0)
@@ -86,7 +94,7 @@ namespace MoonActive.Scripts.UI
                     slot.Init(slot.SlotData, targetPos);
 
                     if (slotData.isPlayer)
-                        _playerSlot = slot;
+                        _playerData = slotData;
                 }
                 else
                 {
@@ -109,25 +117,24 @@ namespace MoonActive.Scripts.UI
                             isPlayer = true
                         };
                         slot.Init(slotData, targetPos);
-                        _playerSlot = slot;
+                        _playerData = slotData;
                     }
                 }
                 _slotDatas.Add(slotData);
             }
         }
         
-        [ContextMenu("Open")]
         void Open()
         {
             if (_slots.Count == 0)
                 Init();
 
-            var playerNewScore = _playerSlot.SlotData.score + 5;// _playerScoreIncrement;
+            var playerNewScore = _playerData.score + _playerScoreIncrement;
 
             foreach (var slotData in _slotDatas)
             {
-                if(slotData != _playerSlot.SlotData)
-                    slotData.score = Random.Range(-3, 3) + playerNewScore;
+                if(slotData != _playerData)
+                    slotData.score = Mathf.Clamp(Random.Range(-3, 3) + playerNewScore, 0 , 999999);
             }
 
             OrderSlots();
@@ -138,21 +145,26 @@ namespace MoonActive.Scripts.UI
         IEnumerator OpenSeq()
         {
             _isFinished = false;
+
+            yield return _waitLbOpenDelay;
+
             
             for (var i = 0; i < _slots.Count; i++)
             {
                 var slot = _slots[i];
+                var slotData = _slotDatas[i];
         
-                slot.Init(_slotDatas[i], GetSlotPosition(i));
+                slot.Init(slotData, GetSlotPosition(i));
                 slot.Open(leaderboardData.slotOpenDuration);
-                
+
+                if (slotData.isPlayer)
+                    _playerSlot = slot;
                 yield return _waitSlotOpenDelayBtwSlots;
             }
             
             yield return _waitSlotOpen;
         
-            // _playerSlot.IncrementPoint( _playerScoreIncrement, leaderboardData.playerScoreIncDuration);
-            _playerSlot.IncrementPoint( 5, leaderboardData.playerScoreIncDuration);
+            _playerSlot.IncrementPoint( _playerScoreIncrement, leaderboardData.playerScoreIncDuration);
 
             yield return _waitPlayerScoreInc;
             

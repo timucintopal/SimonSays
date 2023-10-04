@@ -34,10 +34,9 @@ namespace MoonActive.Scripts.Managers
         public static void SaveDataJson<T>(T data)
         {
             Debug.Log("Save! " + Application.persistentDataPath);
-            string levelTypeToJson = JsonUtility.ToJson(typeof(T));
+            string levelTypeToJson = JsonUtility.ToJson(data);
             
             File.WriteAllText(JsonFilePath, levelTypeToJson);
-
         }
         
         public static T LoadDataJson<T>()

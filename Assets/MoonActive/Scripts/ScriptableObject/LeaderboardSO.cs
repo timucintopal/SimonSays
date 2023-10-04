@@ -13,6 +13,7 @@ namespace MoonActive.Scripts.ScriptableObject
         public float slotMoveDuration;
         public float slotOpenDuration;
         public float playerScoreIncDuration;
+        public float leaderboardOpenDelay;
 
         [SerializeField] public List<string> userNames;
 

@@ -19,6 +19,7 @@ MonoBehaviour:
   slotMoveDuration: 0.5
   slotOpenDuration: 1
   playerScoreIncDuration: 1
+  leaderboardOpenDelay: 1
   userNames:
   - Amy
   - Jim

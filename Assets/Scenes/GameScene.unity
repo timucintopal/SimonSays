@@ -2482,6 +2482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   failTextTransform: {fileID: 1230379093}
   timesUpTextTransform: {fileID: 1095139612}
+  timesUpText: {fileID: 1095139613}
   TryAgainButton: {fileID: 1891167450}
   NextButton: {fileID: 394767689}
 --- !u!1 &1456654825
