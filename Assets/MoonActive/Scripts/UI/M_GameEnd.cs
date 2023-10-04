@@ -74,7 +74,6 @@ namespace MoonActive.Scripts.UI
             
             target.DOScale(Vector3.one, 1).SetEase(Ease.OutExpo);
             _openedTransforms.Push(target);
-            Debug.Log("PUSH Open " + target.name);
         }
         
         void CloseAllObject()
@@ -83,7 +82,6 @@ namespace MoonActive.Scripts.UI
             for (int i = 0; i < loopAmount; i++)
             {
                 var openedTransform = _openedTransforms.Pop();
-                Debug.Log("PUSH Close " + openedTransform.name);
                 openedTransform.DOKill();
                 openedTransform.DOScale(Vector3.zero, .5f).SetEase(Ease.InExpo);
             }

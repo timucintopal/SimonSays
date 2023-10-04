@@ -2792,7 +2792,7 @@ GameObject:
   - component: {fileID: 1568955053}
   - component: {fileID: 1568955054}
   m_Layer: 0
-  m_Name: M_FileReader
+  m_Name: FileReader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2825,7 +2825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbab42a605fdc42d5b001dacc5cbd9d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fileReaderSO: {fileID: 11400000, guid: 5f0d3b4b79f634054b224f6a78e1dd85, type: 2}
+  fileReaderSo: {fileID: 11400000, guid: 5f0d3b4b79f634054b224f6a78e1dd85, type: 2}
 --- !u!1 &1580872767
 GameObject:
   m_ObjectHideFlags: 0

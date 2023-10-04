@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class M_Game : MonoBehaviour
 {
-    Config CurrentConfig => M_Logic.CurrentConfig;
+    Config CurrentConfig => PreGameManager.CurrentConfig;
 
     
     private void OnEnable()

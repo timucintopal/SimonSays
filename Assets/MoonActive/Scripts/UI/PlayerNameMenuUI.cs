@@ -30,13 +30,13 @@ namespace MoonActive.Scripts.UI
 
         void OnEnable()
         {
-            M_Logic.IsFirstEntry += Open;
+            PreGameManager.IsFirstEntry += Open;
             _enterButton.onClick.AddListener(TrySaveName);
         }
     
         void OnDisable()
         {
-            M_Logic.IsFirstEntry -= Open;
+            PreGameManager.IsFirstEntry -= Open;
             _enterButton.onClick.RemoveListener(TrySaveName);
         }
 
@@ -85,7 +85,7 @@ namespace MoonActive.Scripts.UI
         IEnumerator Close()
         {
             yield return new WaitForSeconds(.5f);
-            M_Logic.IsDone();
+            PreGameManager.IsDone();
             _bgImg.DOFade(0, .5f);
             _menuRectTransform.DOAnchorPosX(Screen.width + 200, .75f).SetEase(Ease.InExpo).OnComplete(()=> gameObject.SetActive(false));
         }

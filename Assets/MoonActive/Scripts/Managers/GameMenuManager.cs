@@ -6,7 +6,8 @@ using UnityEngine.Events;
 
 namespace MoonActive.Scripts.Managers
 {
-    public class M_Logic : MonoBehaviour
+    //Manages PlayerName Menu Difficulty Choice Menu
+    public class PreGameMenuManager : MonoBehaviour
     {
         public static UnityAction IsFirstEntry;
         public static UnityAction OnInitGame;
@@ -37,13 +38,13 @@ namespace MoonActive.Scripts.Managers
 
         void OnEnable()
         {
-            M_FileReader.OnDataLoad += StartGame;
+            FileReader.OnDataLoad += StartGame;
             M_DifficultiesMenu.OnDifficultySelect += DifficultyReady;
         }
     
         void OnDisable()
         {
-            M_FileReader.OnDataLoad -= StartGame;
+            FileReader.OnDataLoad -= StartGame;
             M_DifficultiesMenu.OnDifficultySelect -= DifficultyReady;
         }
 

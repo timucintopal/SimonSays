@@ -10,7 +10,7 @@ namespace MoonActive.Scripts.UI
 {
     public class M_Timer : MonoBehaviour
     {
-        Config CurrentConfig => M_Logic.CurrentConfig;
+        Config CurrentConfig => PreGameManager.CurrentConfig;
     
         [SerializeField] TextMeshProUGUI _timerText;
         [SerializeField] TextMeshProUGUI _preGameTimerText;
