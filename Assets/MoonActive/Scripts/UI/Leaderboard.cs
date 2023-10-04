@@ -4,6 +4,7 @@ using System.Linq;
 using MoonActive.Scripts.Class;
 using MoonActive.Scripts.ScriptableObject;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace MoonActive.Scripts.UI
 {
@@ -11,6 +12,8 @@ namespace MoonActive.Scripts.UI
     {
         public LeaderboardSO leaderboardData;
         public GameObject slotPrefab;
+
+        public static UnityAction OnLeaderboardSeqEnd;
 
         [SerializeField] private List<LeaderboardSlot> _slots = new List<LeaderboardSlot>();
         [SerializeField] private List<SlotData> _slotDatas = new List<SlotData>();
@@ -20,18 +23,19 @@ namespace MoonActive.Scripts.UI
         private float SlotTopMargin => leaderboardData.slotTopMargin;
         private float SlotMargin => leaderboardData.slotMargin;
 
-        float _slotHeight;
+        private float _slotHeight;
+        private bool _isFinished = false;
+        private int _playerScoreIncrement;
 
+        #region WaitForSeconds
+        
         private WaitForSeconds _waitSlotOpenDelayBtwSlots;
         private WaitForSeconds _waitSlotOpen;
         private WaitForSeconds _waitSlotMove;
         private WaitForSeconds _waitPlayerScoreInc;
-
-        private int _playerScoreIncrement;
-
-
-        private bool _isFinished = false;
-
+        
+        #endregion
+        
         private void Awake()
         {
             _waitSlotOpenDelayBtwSlots = new WaitForSeconds(leaderboardData.slotOpenDelayBetweenSlots);
@@ -58,7 +62,6 @@ namespace MoonActive.Scripts.UI
         private void Start()
         {
             _slotHeight = slotPrefab.GetComponent<RectTransform>().sizeDelta.y;
-            // Open();
         }
 
         void Init()
@@ -162,6 +165,8 @@ namespace MoonActive.Scripts.UI
             }
 
             yield return _waitSlotMove;
+            
+            OnLeaderboardSeqEnd?.Invoke();
         }
 
         [ContextMenu("Close")]

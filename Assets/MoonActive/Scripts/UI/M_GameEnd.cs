@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace MoonActive.Scripts.UI
 {
-    public class GameEnd : PopupUI
+    public class M_GameEnd : PopupUI
     {
         [SerializeField] Transform failTextTransform;
         [SerializeField] Transform timesUpTextTransform;
@@ -18,7 +18,6 @@ namespace MoonActive.Scripts.UI
         
         public static UnityAction OnNextBtnClick;
         public static UnityAction OnTryAgainBtnClick;
-
         public static UnityAction OnGameSuccess;
         public static UnityAction OnGameFail;
         public static UnityAction OnLevelEnd;
@@ -32,6 +31,7 @@ namespace MoonActive.Scripts.UI
             M_Timer.OnTimerFinish += SuccessGame;
             M_Button.OnButtonMatchFail += FailGame;
             M_Button.ButtonCollectEnd += CloseAllObject;
+            Leaderboard.OnLeaderboardSeqEnd += OpenNextButton;
             
             TryAgainButton.onClick.AddListener(()=>Invoke(OnTryAgainBtnClick));
             NextButton.onClick.AddListener(()=>Invoke(OnNextBtnClick));
@@ -42,6 +42,7 @@ namespace MoonActive.Scripts.UI
             M_Timer.OnTimerFinish -= SuccessGame;
             M_Button.OnButtonMatchFail -= FailGame;
             M_Button.ButtonCollectEnd -= CloseAllObject;
+            Leaderboard.OnLeaderboardSeqEnd -= OpenNextButton;
             
             TryAgainButton.onClick.RemoveListener(()=>Invoke(OnTryAgainBtnClick));
             NextButton.onClick.RemoveListener(()=>Invoke(OnNextBtnClick));
@@ -78,6 +79,11 @@ namespace MoonActive.Scripts.UI
                 openedTransform.DOKill();
                 openedTransform.DOScale(Vector3.zero, .5f).SetEase(Ease.InExpo);
             }
+        }
+
+        void OpenNextButton()
+        {
+            NextButton.transform.DOScale(Vector3.one, 1).SetEase(Ease.OutBack);
         }
 
         void Invoke(UnityAction callback)

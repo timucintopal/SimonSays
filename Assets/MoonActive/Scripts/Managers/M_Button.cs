@@ -54,14 +54,16 @@ namespace MoonActive.Scripts.Managers
         {
             M_Logic.OnInitGame += InitButtons;
             M_StartButton.OnGameStart += StartButtonSequence;
-            GameEnd.OnTryAgainBtnClick += CollectButtons;
+            M_GameEnd.OnTryAgainBtnClick += CollectButtons;
+            M_GameEnd.OnNextBtnClick += CollectButtons;
         }
         
         void OnDisable()
         {
             M_Logic.OnInitGame -= InitButtons;
             M_StartButton.OnGameStart -= StartButtonSequence;
-            GameEnd.OnTryAgainBtnClick -= CollectButtons;
+            M_GameEnd.OnTryAgainBtnClick -= CollectButtons;
+            M_GameEnd.OnNextBtnClick -= CollectButtons;
         }
 
         void InitButtons()
