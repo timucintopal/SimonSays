@@ -50,15 +50,15 @@ namespace MoonActive.Scripts.UI
         private void OnEnable()
         {
             M_StartButton.OnGameStart += InitTimer;
-            M_Button.OnButtonMatchFail += StopTimer;
-            M_Button.ButtonCollectEnd += Close;
+            GameButtons.OnButtonMatchFail += StopTimer;
+            GameButtons.ButtonCollectEnd += Close;
         }
     
         private void OnDisable()
         {
             M_StartButton.OnGameStart -= InitTimer;
-            M_Button.OnButtonMatchFail -= StopTimer;
-            M_Button.ButtonCollectEnd -= Close;
+            GameButtons.OnButtonMatchFail -= StopTimer;
+            GameButtons.ButtonCollectEnd -= Close;
         }
 
         private void InitTimer()

@@ -11,7 +11,6 @@ namespace MoonActive.Scripts.Managers
         public static UnityAction IsFirstEntry;
         public static UnityAction OnInitGame;
         public static UnityAction OnPlayerNameReady;
-        public static UnityAction OnSuccess;
 
         static bool isWaiting = false;
 

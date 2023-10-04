@@ -31,8 +31,8 @@ namespace MoonActive.Scripts.UI
         private void OnEnable()
         {
             M_Timer.OnTimerFinish += SuccessGame;
-            M_Button.OnButtonMatchFail += FailGame;
-            M_Button.ButtonCollectEnd += CloseAllObject;
+            GameButtons.OnButtonMatchFail += FailGame;
+            GameButtons.ButtonCollectEnd += CloseAllObject;
             Leaderboard.OnLeaderboardSeqEnd += OpenNextButton;
             
             TryAgainButton.onClick.AddListener(()=>Invoke(OnTryAgainBtnClick));
@@ -42,8 +42,8 @@ namespace MoonActive.Scripts.UI
         private void OnDisable()
         {
             M_Timer.OnTimerFinish -= SuccessGame;
-            M_Button.OnButtonMatchFail -= FailGame;
-            M_Button.ButtonCollectEnd -= CloseAllObject;
+            GameButtons.OnButtonMatchFail -= FailGame;
+            GameButtons.ButtonCollectEnd -= CloseAllObject;
             Leaderboard.OnLeaderboardSeqEnd -= OpenNextButton;
             
             TryAgainButton.onClick.RemoveListener(()=>Invoke(OnTryAgainBtnClick));

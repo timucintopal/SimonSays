@@ -9,12 +9,12 @@ public class M_Game : MonoBehaviour
     
     private void OnEnable()
     {
-        M_Button.OnButtonsReady += StartGame;
+        GameButtons.OnButtonsReady += StartGame;
     }
         
     private void OnDisable()
     {
-        M_Button.OnButtonsReady -= StartGame;
+        GameButtons.OnButtonsReady -= StartGame;
     }
 
     void StartGame()

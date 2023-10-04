@@ -9,15 +9,15 @@ using UnityEngine.UI;
 
 namespace MoonActive.Scripts.UI
 {
-    public class M_PlayerName : MonoBehaviour
+    public class PlayerNameMenuUI : MonoBehaviour
     {
-        [SerializeField] Image _bgImg;
-        [SerializeField] Transform _menu;
-        RectTransform _menuRectTransform;
+        [SerializeField] private Image _bgImg;
+        [SerializeField] private Transform _menu;
+        private RectTransform _menuRectTransform;
 
-        [Space, SerializeField] Button _enterButton;
-        [SerializeField] TMP_InputField _nameField;
-        [SerializeField] TextMeshProUGUI _placeholderField;
+        [Space, SerializeField] private Button _enterButton;
+        [SerializeField] private TMP_InputField _nameField;
+        [SerializeField] private TextMeshProUGUI _placeholderField;
 
         bool _isSaved = false;
 

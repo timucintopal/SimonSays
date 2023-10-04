@@ -19,20 +19,20 @@ namespace MoonActive.Scripts.Controller
         
         private void OnEnable()
         {
-            M_Button.ButtonCollectStart += Close;
+            GameButtons.ButtonCollectStart += Close;
         }
         
         private void OnDisable()
         {
-            M_Button.ButtonCollectStart -= Close;
+            GameButtons.ButtonCollectStart -= Close;
         }
         
         public void OnClick()
         {
-            if(!M_Button.Status) return;
+            if(!GameButtons.Status) return;
             innerButton.DOScale(-.05f, .05f).SetRelative(true).SetLoops(2, LoopType.Yoyo);//.OnComplete();
             Select();
-            M_Button.I.Selected(this);
+            GameButtons.I.Selected(this);
         }
         
         public void Select(UnityAction callback = null)

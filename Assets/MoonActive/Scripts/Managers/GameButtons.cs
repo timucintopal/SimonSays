@@ -11,13 +11,11 @@ namespace MoonActive.Scripts.Managers
 {
     public enum ButtonObserveState
     {
-        Show,
-        Idle,
         Compare,
         Observing,
     }
     
-    public class M_Button : Singleton<M_Button>
+    public class GameButtons : Singleton<GameButtons>
     {
         [SerializeField] ButtonData buttonData;
         
@@ -26,11 +24,11 @@ namespace MoonActive.Scripts.Managers
         List<Vector3> SpawnPosList => buttonData.GetSpawnList(ButtonAmount);
         List<Color> ColorList => buttonData.ButtonSelectColors;
         
-        [SerializeField] List<ButtonController> selectedButtons = new List<ButtonController>();
-        [SerializeField] List<ButtonController> playerSelectedButtons = new List<ButtonController>();
+        private List<ButtonController> selectedButtons = new List<ButtonController>();
+        private List<ButtonController> playerSelectedButtons = new List<ButtonController>();
         
-        readonly List<ButtonController> _buttonControllers = new List<ButtonController>();
-        readonly Stack<ButtonController> _buttonStack = new Stack<ButtonController>();
+        private List<ButtonController> _buttonControllers = new List<ButtonController>();
+        private Stack<ButtonController> _buttonStack = new Stack<ButtonController>();
 
         public static UnityAction OnButtonsReady;
         public static UnityAction ButtonCollectStart;
@@ -73,7 +71,6 @@ namespace MoonActive.Scripts.Managers
 
         void StartButtonSequence()
         {
-            Debug.Log("START SEQ");
             StartCoroutine(ButtonSelectSequence());
         }
 
@@ -119,22 +116,6 @@ namespace MoonActive.Scripts.Managers
                 _buttonMatch = false;
                 _buttonObserveState = ButtonObserveState.Compare;
             }
-            
-            // if (selectedButtons.Count == playerSelectedButtons.Count)
-            // {
-            //     _buttonMatch = selectedButtons.Last() == buttonController;
-            //     for (var i = 0; i < playerSelectedButtons.Count; i++)
-            //     {
-            //         var playerSelectedButton = playerSelectedButtons[i];
-            //         
-            //         if (playerSelectedButton == selectedButtons[i]) continue;
-            //         
-            //         _buttonMatch = false;
-            //         break;
-            //     }
-            //     Debug.Log("BUTTON SELECT STATUS " + _buttonMatch);
-            //     _buttonObserveState = ButtonObserveState.Compare;
-            // }
         }
         
         IEnumerator ButtonSelectSequence()
@@ -146,8 +127,6 @@ namespace MoonActive.Scripts.Managers
             while (M_Timer.IsCounting)
             {
                 playerSelectedButtons.Clear();
-                Debug.Log("BUTTON START ");
-                
                 selectedButtons.Add(_buttonControllers[Random.Range(0,_buttonControllers.Count)]);
                 
                 if(CurrentConfig.IsRepeating)
@@ -165,22 +144,17 @@ namespace MoonActive.Scripts.Managers
                 }
                 
                 _buttonObserveState = ButtonObserveState.Observing;
-                // yield return new WaitUntil(()=> (lastButtonAmount != _selectedButtons.Count));
                 yield return new WaitUntil(()=> (_buttonObserveState == ButtonObserveState.Compare));
                 yield return new WaitForSeconds((buttonData.colorDuration + .25f) / CurrentConfig.SpeedMultiplier );
 
                 if (!M_Timer.IsCounting)
-                {
-                    Debug.Log("BUTTON SEQ ENDED TIMER");
                     yield break;
-                }
                 
                 if (_buttonMatch)
                     OnButtonMatch?.Invoke();
                 else
                     OnButtonMatchFail?.Invoke();
             }
-            Debug.Log("BUTTON SEQ ENDED");
         }
         
         ButtonController CreateButton()

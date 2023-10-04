@@ -36,18 +36,18 @@ namespace MoonActive.Scripts.UI
         void OnEnable()
         {
             M_DifficultiesMenu.OnDifficultySelect += GetConfig;
-            M_Button.OnButtonMatch += Increment;
+            GameButtons.OnButtonMatch += Increment;
             M_StartButton.OnGameStart += Open;
-            M_Button.ButtonCollectEnd += Close;
+            GameButtons.ButtonCollectEnd += Close;
             M_Timer.OnTimerFinish += SendScore;
         }
         
         void OnDisable()
         {
             M_DifficultiesMenu.OnDifficultySelect -= GetConfig;
-            M_Button.OnButtonMatch -= Increment;
+            GameButtons.OnButtonMatch -= Increment;
             M_StartButton.OnGameStart -= Open;
-            M_Button.ButtonCollectEnd -= Close;
+            GameButtons.ButtonCollectEnd -= Close;
             M_Timer.OnTimerFinish -= SendScore;
         }
 
