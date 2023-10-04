@@ -20,14 +20,14 @@ namespace MoonActive.Scripts.UI
         private void OnEnable()
         {
             Managers.FileReader.OnDataLoad += LoadData;
-            PreGameManager.OnPlayerNameReady += Open;
+            GameMenuManager.OnPlayerNameReady += Open;
             GameButtons.ButtonCollectEnd += Open;
         }
         
         private void OnDisable()
         {
             Managers.FileReader.OnDataLoad -= LoadData;
-            PreGameManager.OnPlayerNameReady -= Open;
+            GameMenuManager.OnPlayerNameReady -= Open;
             GameButtons.ButtonCollectEnd -= Open;
         }
 

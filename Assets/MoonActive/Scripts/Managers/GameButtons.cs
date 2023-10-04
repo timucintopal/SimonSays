@@ -19,7 +19,7 @@ namespace MoonActive.Scripts.Managers
     {
         [SerializeField] ButtonData buttonData;
         
-        Config CurrentConfig => PreGameManager.CurrentConfig;
+        Config CurrentConfig => GameMenuManager.CurrentConfig;
         int ButtonAmount => CurrentConfig.ButtonAmount;
         List<Vector3> SpawnPosList => buttonData.GetSpawnList(ButtonAmount);
         List<Color> ColorList => buttonData.ButtonSelectColors;
@@ -50,7 +50,7 @@ namespace MoonActive.Scripts.Managers
 
         void OnEnable()
         {
-            PreGameManager.OnInitGame += InitButtons;
+            GameMenuManager.OnInitGame += InitButtons;
             M_StartButton.OnGameStart += StartButtonSequence;
             M_GameEnd.OnTryAgainBtnClick += CollectButtons;
             M_GameEnd.OnNextBtnClick += CollectButtons;
@@ -58,7 +58,7 @@ namespace MoonActive.Scripts.Managers
         
         void OnDisable()
         {
-            PreGameManager.OnInitGame -= InitButtons;
+            GameMenuManager.OnInitGame -= InitButtons;
             M_StartButton.OnGameStart -= StartButtonSequence;
             M_GameEnd.OnTryAgainBtnClick -= CollectButtons;
             M_GameEnd.OnNextBtnClick -= CollectButtons;

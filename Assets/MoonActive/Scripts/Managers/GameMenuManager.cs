@@ -7,7 +7,7 @@ using UnityEngine.Events;
 namespace MoonActive.Scripts.Managers
 {
     //Manages PlayerName Menu Difficulty Choice Menu
-    public class PreGameMenuManager : MonoBehaviour
+    public class GameMenuManager : MonoBehaviour
     {
         public static UnityAction IsFirstEntry;
         public static UnityAction OnInitGame;
