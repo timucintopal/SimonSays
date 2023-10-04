@@ -14,6 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotAmount: 5
   slotMargin: 25
+  slotTopMargin: 0
+  slotOpenDelayBetweenSlots: 0.1
+  slotMoveDuration: 0.5
+  slotOpenDuration: 1
+  playerScoreIncDuration: 1
   userNames:
   - Amy
   - Jim

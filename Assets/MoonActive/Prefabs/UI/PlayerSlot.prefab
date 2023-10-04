@@ -432,6 +432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8440056525284402463}
   - component: {fileID: 6946063066177688536}
+  - component: {fileID: 859692904211862529}
   m_Layer: 5
   m_Name: PlayerSlot
   m_TagString: Untagged
@@ -479,3 +480,25 @@ MonoBehaviour:
   playerBg: {fileID: 7349536971097244805}
   nameTxt: {fileID: 8440056525004427694}
   scoreTxt: {fileID: 8440056524439991497}
+  canvas: {fileID: 859692904211862529}
+--- !u!223 &859692904211862529
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8440056525284402460}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: 0
+  m_SortingOrder: 1
+  m_TargetDisplay: 0

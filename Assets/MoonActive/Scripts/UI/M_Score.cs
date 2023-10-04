@@ -3,6 +3,7 @@ using MoonActive.Scripts.Interface;
 using MoonActive.Scripts.Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace MoonActive.Scripts.UI
 {
@@ -20,10 +21,12 @@ namespace MoonActive.Scripts.UI
             get => _scoreAmount;
             set
             {
-                _scoreAmount = value;
+                _scoreAmount = Mathf.Clamp(value,0, 99999999);
                 scoreText.text = _scoreAmount.ToString();
             }
         }
+
+        public static UnityAction<int> GameEndScore;
 
         private void Awake()
         {
@@ -36,6 +39,7 @@ namespace MoonActive.Scripts.UI
             M_Button.OnButtonMatch += Increment;
             M_StartButton.OnGameStart += Open;
             M_Button.ButtonCollectEnd += Close;
+            M_Timer.OnTimerFinish += SendScore;
         }
         
         void OnDisable()
@@ -44,6 +48,12 @@ namespace MoonActive.Scripts.UI
             M_Button.OnButtonMatch -= Increment;
             M_StartButton.OnGameStart -= Open;
             M_Button.ButtonCollectEnd -= Close;
+            M_Timer.OnTimerFinish -= SendScore;
+        }
+
+        void SendScore()
+        {
+            GameEndScore?.Invoke(ScoreAmount);
         }
 
         public void GetConfig(Config config)
