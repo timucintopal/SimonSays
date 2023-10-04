@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using MoonActive.Scripts.Class;
-using MoonActive.Scripts.Interface;
 using MoonActive.Scripts.Managers;
 using TMPro;
 using UnityEngine;
@@ -10,17 +9,19 @@ using UnityEngine.UI;
 
 namespace MoonActive.Scripts.UI
 {
-    public class M_GameEnd : PopupUI
+    public class GameEndManager : PopupUI
     {
-        [SerializeField] Transform failTextTransform;
-        [SerializeField] Transform timesUpTextTransform;
-        [SerializeField] TextMeshProUGUI timesUpText;
+        [SerializeField] private Transform failTextTransform;
+        [SerializeField] private Transform timesUpTextTransform;
+        [SerializeField] private TextMeshProUGUI timesUpText;
 
-        [SerializeField] Button TryAgainButton;
-        [SerializeField] Button NextButton;
+        [SerializeField] private Button tryAgainButton;
+        [SerializeField] private Button nextButton;
         
         public static UnityAction OnNextBtnClick;
         public static UnityAction OnTryAgainBtnClick;
+        
+        //For future usages, maybe if needed
         public static UnityAction OnGameSuccess;
         public static UnityAction OnGameFail;
         public static UnityAction OnLevelEnd;
@@ -31,24 +32,24 @@ namespace MoonActive.Scripts.UI
 
         private void OnEnable()
         {
-            M_Timer.OnTimerFinish += SuccessGame;
+            TimerManager.OnTimerFinish += SuccessGame;
             GameButtonManager.OnButtonMatchFail += FailGame;
             GameButtonManager.ButtonCollectEnd += CloseAllObject;
-            Leaderboard.OnLeaderboardSeqEnd += OpenNextButton;
+            LeaderboardManager.OnLeaderboardSeqEnd += OpenNextButton;
             
-            TryAgainButton.onClick.AddListener(()=>Invoke(OnTryAgainBtnClick));
-            NextButton.onClick.AddListener(()=>Invoke(OnNextBtnClick));
+            tryAgainButton.onClick.AddListener(()=>Invoke(OnTryAgainBtnClick));
+            nextButton.onClick.AddListener(()=>Invoke(OnNextBtnClick));
         }
         
         private void OnDisable()
         {
-            M_Timer.OnTimerFinish -= SuccessGame;
+            TimerManager.OnTimerFinish -= SuccessGame;
             GameButtonManager.OnButtonMatchFail -= FailGame;
             GameButtonManager.ButtonCollectEnd -= CloseAllObject;
-            Leaderboard.OnLeaderboardSeqEnd -= OpenNextButton;
+            LeaderboardManager.OnLeaderboardSeqEnd -= OpenNextButton;
             
-            TryAgainButton.onClick.RemoveListener(()=>Invoke(OnTryAgainBtnClick));
-            NextButton.onClick.RemoveListener(()=>Invoke(OnNextBtnClick));
+            tryAgainButton.onClick.RemoveListener(()=>Invoke(OnTryAgainBtnClick));
+            nextButton.onClick.RemoveListener(()=>Invoke(OnNextBtnClick));
         }
         
         void SuccessGame()
@@ -62,7 +63,7 @@ namespace MoonActive.Scripts.UI
         void FailGame()
         {
             OpenObject(failTextTransform);
-            StartCoroutine(Helper.InvokeAction(()=> OpenObject(TryAgainButton.transform),1));
+            StartCoroutine(Helper.InvokeAction(()=> OpenObject(tryAgainButton.transform),1));
             OnGameFail?.Invoke();
             OnLevelEnd?.Invoke();
         }
@@ -90,7 +91,7 @@ namespace MoonActive.Scripts.UI
 
         void OpenNextButton()
         {
-            OpenObject(NextButton.transform);
+            OpenObject(nextButton.transform);
         }
 
         void Invoke(UnityAction callback)

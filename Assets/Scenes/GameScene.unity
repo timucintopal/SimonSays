@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 378785569}
   - component: {fileID: 378785570}
   m_Layer: 5
-  m_Name: M_StartButton
+  m_Name: GameStartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2689,7 +2689,7 @@ GameObject:
   - component: {fileID: 1413542950}
   - component: {fileID: 1413542951}
   m_Layer: 5
-  m_Name: M_GameEnd
+  m_Name: GameEndManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2733,8 +2733,8 @@ MonoBehaviour:
   failTextTransform: {fileID: 1230379093}
   timesUpTextTransform: {fileID: 1095139612}
   timesUpText: {fileID: 1095139613}
-  TryAgainButton: {fileID: 1891167450}
-  NextButton: {fileID: 394767689}
+  tryAgainButton: {fileID: 1891167450}
+  nextButton: {fileID: 394767689}
 --- !u!1 &1456654825
 GameObject:
   m_ObjectHideFlags: 0
@@ -3395,7 +3395,7 @@ GameObject:
   - component: {fileID: 1805177721}
   - component: {fileID: 1805177722}
   m_Layer: 5
-  m_Name: M_Timer
+  m_Name: TimerManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3435,8 +3435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aba01b963196642e98a9dce1ca91d194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timerText: {fileID: 763102032}
-  _preGameTimerText: {fileID: 1306858896}
+  timerText: {fileID: 763102032}
+  preGameTimerText: {fileID: 1306858896}
 --- !u!1 &1854636853
 GameObject:
   m_ObjectHideFlags: 0

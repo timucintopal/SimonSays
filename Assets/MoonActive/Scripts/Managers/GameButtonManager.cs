@@ -51,17 +51,17 @@ namespace MoonActive.Scripts.Managers
         void OnEnable()
         {
             GameMenuManager.OnInitGame += InitButtons;
-            M_StartButton.OnGameStart += StartButtonSequence;
-            M_GameEnd.OnTryAgainBtnClick += CollectButtons;
-            M_GameEnd.OnNextBtnClick += CollectButtons;
+            GameStartButton.OnGameStart += StartButtonSequence;
+            GameEndManager.OnTryAgainBtnClick += CollectButtons;
+            GameEndManager.OnNextBtnClick += CollectButtons;
         }
         
         void OnDisable()
         {
             GameMenuManager.OnInitGame -= InitButtons;
-            M_StartButton.OnGameStart -= StartButtonSequence;
-            M_GameEnd.OnTryAgainBtnClick -= CollectButtons;
-            M_GameEnd.OnNextBtnClick -= CollectButtons;
+            GameStartButton.OnGameStart -= StartButtonSequence;
+            GameEndManager.OnTryAgainBtnClick -= CollectButtons;
+            GameEndManager.OnNextBtnClick -= CollectButtons;
         }
 
         void InitButtons()
@@ -122,9 +122,9 @@ namespace MoonActive.Scripts.Managers
         {
             _selectedButtons.Clear();
             
-            yield return new WaitUntil(() => M_Timer.IsCounting);
+            yield return new WaitUntil(() => TimerManager.IsCounting);
             yield return new WaitForSeconds(1);
-            while (M_Timer.IsCounting)
+            while (TimerManager.IsCounting)
             {
                 _playerSelectedButtons.Clear();
                 _selectedButtons.Add(_buttonControllers[Random.Range(0,_buttonControllers.Count)]);
@@ -147,7 +147,7 @@ namespace MoonActive.Scripts.Managers
                 yield return new WaitUntil(()=> (_buttonObserveState == ButtonObserveState.Compare));
                 yield return new WaitForSeconds((buttonData.colorDuration + .25f) / CurrentConfig.SpeedMultiplier );
 
-                if (!M_Timer.IsCounting)
+                if (!TimerManager.IsCounting)
                     yield break;
                 
                 if (_buttonMatch)

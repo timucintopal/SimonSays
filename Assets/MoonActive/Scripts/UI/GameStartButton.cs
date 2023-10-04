@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace MoonActive.Scripts.UI
 {
-    public class M_StartButton : MonoBehaviour
+    public class GameStartButton : MonoBehaviour
     {
         [SerializeField] Button _button;
         

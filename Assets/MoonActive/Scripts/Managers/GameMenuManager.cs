@@ -38,13 +38,13 @@ namespace MoonActive.Scripts.Managers
         void OnEnable()
         {
             FileReader.OnDataLoad += StartGame;
-            M_DifficultiesMenu.OnDifficultySelect += DifficultyReady;
+            DifficultiesMenu.OnDifficultySelect += DifficultyReady;
         }
     
         void OnDisable()
         {
             FileReader.OnDataLoad -= StartGame;
-            M_DifficultiesMenu.OnDifficultySelect -= DifficultyReady;
+            DifficultiesMenu.OnDifficultySelect -= DifficultyReady;
         }
 
         void StartGame(GameConfigs arg0)

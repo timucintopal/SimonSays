@@ -23,7 +23,7 @@ namespace MoonActive.Scripts.UI
         [ContextMenu("TEST")]
         private void ClickAnimation()
         {
-            if(!M_DifficultiesMenu.IsSelected)
+            if(!DifficultiesMenu.IsSelected)
                 transform.DOScale(-.1f, .15f).SetRelative(true).SetLoops(2, LoopType.Yoyo);
         }
     }

@@ -1,33 +1,31 @@
 using System.Collections;
 using MoonActive.Scripts.Class;
-using MoonActive.Scripts.Interface;
 using MoonActive.Scripts.Managers;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace MoonActive.Scripts.UI
 {
-    public class M_DifficultiesMenu : PopupUI
+    public class DifficultiesMenu : PopupUI
     {
         public static bool IsSelected = false;
-
         public static UnityAction<Config> OnDifficultySelect;
 
-        GameConfigs _gameConfigs = new GameConfigs();
-
-        [SerializeField] Transform buttonParent;
-        [SerializeField] GameObject difficultyButton;
+        private GameConfigs _gameConfigs = new GameConfigs();
+        
+        [SerializeField] private Transform buttonParent;
+        [SerializeField] private GameObject difficultyButton;
     
         private void OnEnable()
         {
-            Managers.FileReader.OnDataLoad += LoadData;
+            FileReader.OnDataLoad += LoadData;
             GameMenuManager.OnPlayerNameReady += Open;
             GameButtonManager.ButtonCollectEnd += Open;
         }
         
         private void OnDisable()
         {
-            Managers.FileReader.OnDataLoad -= LoadData;
+            FileReader.OnDataLoad -= LoadData;
             GameMenuManager.OnPlayerNameReady -= Open;
             GameButtonManager.ButtonCollectEnd -= Open;
         }
@@ -42,8 +40,6 @@ namespace MoonActive.Scripts.UI
         {
             IsSelected = false;
             var buttonHeight = difficultyButton.GetComponent<RectTransform>().sizeDelta.y;
-
-            Debug.Log("HEIGHT " + buttonHeight);
 
             for (var i = 0; i < _gameConfigs.List.Count; i++)
             {

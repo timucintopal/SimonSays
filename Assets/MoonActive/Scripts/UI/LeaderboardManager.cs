@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 namespace MoonActive.Scripts.UI
 {
-    public class Leaderboard : MonoBehaviour
+    public class LeaderboardManager : MonoBehaviour
     {
         public LeaderboardSO leaderboardData;
         public GameObject slotPrefab;
@@ -26,7 +26,6 @@ namespace MoonActive.Scripts.UI
         private float SlotMargin => leaderboardData.slotMargin;
 
         private float _slotHeight;
-        private bool _isFinished = false;
         private int _playerScoreIncrement;
 
         #region WaitForSeconds
@@ -51,15 +50,15 @@ namespace MoonActive.Scripts.UI
         private void OnEnable()
         {
             ScoreManager.GameEndScore += GetScore;
-            M_Timer.OnTimerFinish += Open;
-            M_GameEnd.OnNextBtnClick += Close;
+            TimerManager.OnTimerFinish += Open;
+            GameEndManager.OnNextBtnClick += Close;
         }
         
         private void OnDisable()
         {
             ScoreManager.GameEndScore -= GetScore;
-            M_Timer.OnTimerFinish -= Open;
-            M_GameEnd.OnNextBtnClick -= Close;
+            TimerManager.OnTimerFinish -= Open;
+            GameEndManager.OnNextBtnClick -= Close;
         }
 
         private void GetScore(int arg0)
@@ -144,8 +143,6 @@ namespace MoonActive.Scripts.UI
 
         IEnumerator OpenSeq()
         {
-            _isFinished = false;
-
             yield return _waitLbOpenDelay;
 
             
