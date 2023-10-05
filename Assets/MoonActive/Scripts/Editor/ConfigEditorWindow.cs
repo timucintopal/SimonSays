@@ -13,7 +13,7 @@ namespace MoonActive.Scripts.Editor
 
         Vector2 scrollPosition;
 
-        [MenuItem("Custom/Open Config Editor")]
+        [MenuItem("DataEditor/Open Config Editor")]
         public static void ShowWindow()
         {
             GetWindow<ConfigEditorWindow>("Config Editor");
