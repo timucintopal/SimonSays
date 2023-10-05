@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MoonActive.Scripts.Class;
 using MoonActive.Scripts.Managers;
 using UnityEditor;
 using UnityEngine;

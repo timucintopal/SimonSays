@@ -1,4 +1,5 @@
 using DG.Tweening;
+using MoonActive.Scripts.Class;
 using MoonActive.Scripts.Interface;
 using MoonActive.Scripts.Managers;
 using TMPro;

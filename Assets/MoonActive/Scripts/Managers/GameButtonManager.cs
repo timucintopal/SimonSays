@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MoonActive.Scripts.Class;
 using MoonActive.Scripts.Controller;
 using MoonActive.Scripts.ScriptableObject;
 using MoonActive.Scripts.UI;

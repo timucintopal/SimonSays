@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MoonActive.Scripts
+namespace MoonActive.Scripts.Class
 {
     [Serializable]
     public class GameConfigs

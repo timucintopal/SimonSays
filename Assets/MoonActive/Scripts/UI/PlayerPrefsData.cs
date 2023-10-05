@@ -1,7 +1,6 @@
-using MoonActive.Scripts.UI;
 using UnityEngine;
 
-namespace MoonActive.Scripts.Class
+namespace MoonActive.Scripts.UI
 {
     public static class PlayerPrefsData
     {

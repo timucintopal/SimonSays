@@ -1,3 +1,4 @@
+using MoonActive.Scripts.Class;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;

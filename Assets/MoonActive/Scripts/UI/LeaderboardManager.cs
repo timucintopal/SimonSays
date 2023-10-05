@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using MoonActive.Scripts.Class;
 using MoonActive.Scripts.ScriptableObject;
+using MoonActive.Scripts.UI;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace MoonActive.Scripts.UI
+namespace MoonActive.Scripts.Class
 {
     public class LeaderboardManager : MonoBehaviour
     {

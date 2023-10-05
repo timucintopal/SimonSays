@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Linq;
 using DG.Tweening;
+using MoonActive.Scripts.Class;
 using MoonActive.Scripts.Managers;
 using TMPro;
 using UnityEngine;
